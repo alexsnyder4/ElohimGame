@@ -14,6 +14,8 @@ public class CameraMovement : MonoBehaviour
     private Transform cameraTransform;
     private float mouseX, mouseY;
     private bool isRotating;
+    private Vector3 offset;
+    private Vector3 targetPosition;
 
     void Start()
     {
@@ -25,7 +27,7 @@ public class CameraMovement : MonoBehaviour
         UpdateCameraDistance(cameraDistance);
     }
 
-    void Update()
+    void LateUpdate()
     {
         // Capture scroll wheel input
         float scrollInput = Input.GetAxis("Mouse ScrollWheel");
@@ -34,7 +36,7 @@ public class CameraMovement : MonoBehaviour
         cameraDistance = Mathf.Clamp(cameraDistance - scrollInput * zoomSpeed, minDistance, maxDistance);
         UpdateCameraDistance(cameraDistance);
 
-        // Check for right-click input to enable camera rotation
+        // Check for right-click input to enable or disable camera rotation
         if (Input.GetMouseButtonDown(1))
         {
             isRotating = true;
@@ -42,25 +44,17 @@ public class CameraMovement : MonoBehaviour
         if (Input.GetMouseButtonUp(1))
         {
             isRotating = false;
+            // When mouse is released, revert to the starting position
         }
 
-        // Rotate the camera if right-click is held
         if (isRotating)
         {
-            mouseX += Input.GetAxis("Mouse X") * rotationSpeed;
-            mouseY -= Input.GetAxis("Mouse Y") * rotationSpeed;
-            mouseY = Mathf.Clamp(mouseY, -45, 45); // Limit vertical camera rotation
+            MoveCameraWithMouse();
         }
-
-        // Calculate camera position based on player's forward direction
-        Vector3 offset = Quaternion.Euler(mouseY, mouseX, 0) * Vector3.forward * -cameraDistance;
-        Vector3 targetPosition = player.position + offset + Vector3.up * 2.0f;
-
-        // Apply calculated position to the camera
-        cameraTransform.position = targetPosition;
-
-        // Make the camera look at the player
-        cameraTransform.LookAt(player);
+        else
+        {
+            CameraFollowPlayer();
+        }
     }
 
     void UpdateCameraDistance(float distance)
@@ -69,5 +63,29 @@ public class CameraMovement : MonoBehaviour
         Vector3 offset = Quaternion.Euler(mouseY, mouseX, 0) * Vector3.forward * -distance;
         Vector3 targetPosition = player.position + offset;
         cameraTransform.position = targetPosition;
+    }
+
+    void MoveCameraWithMouse()
+    {
+        
+        mouseX += Input.GetAxis("Mouse X") * rotationSpeed;
+        mouseY -= Input.GetAxis("Mouse Y") * rotationSpeed;
+        mouseY = Mathf.Clamp(mouseY, -45, 45); // Limit vertical camera rotation
+        offset = Quaternion.Euler(mouseY, mouseX, 0) * Vector3.forward * -cameraDistance;
+        targetPosition = player.position + offset + Vector3.up * 2.0f;
+
+        // Make the camera look at the player
+        cameraTransform.LookAt(player);
+    }
+
+    void CameraFollowPlayer()
+    {
+        mouseX = 0;
+        offset = Quaternion.Euler(mouseY, mouseX, 0) * Vector3.forward * -cameraDistance;
+        targetPosition = player.TransformPoint(offset) + Vector3.up * 2.0f;
+        cameraTransform.position = targetPosition;
+
+        // Make the camera look at the player
+        cameraTransform.LookAt(player);
     }
 }
