@@ -12,6 +12,7 @@ public class Movement : MonoBehaviour
     public float rotationSpeed = 5.0f; // Adjust the rotation speed.
     public float jumpForce = 60.0f;
     public float groundRaycastDistance = 0.1f;
+
     public LayerMask groundLayer;
     private Rigidbody rb;
 
@@ -19,9 +20,11 @@ public class Movement : MonoBehaviour
     private bool isJumping = false;
     private bool isWalkingBack = false;
     private bool runJump = false;
-
-
-
+    private bool backJump = false;
+    private bool isStrafing = true;
+    private bool isStrafingR = false;
+    private bool isStrafingL = false;
+    private float horizontalInput;
 
     void Start()
     {
@@ -33,56 +36,71 @@ public class Movement : MonoBehaviour
 
     void Update()
     {
-        
-        // Player Rotation
-        float horizontalInput = Input.GetAxis("Horizontal");
+    // Player Rotation
+    float horizontalInput = Input.GetAxis("Horizontal");
+    
+    if (!Input.GetKey(KeyCode.LeftShift))
+    {
+        isStrafing = false;
+        // Apply rotation only if Shift key is not held down
         Vector3 rotation = new Vector3(0, horizontalInput * rotationSpeed, 0);
         playerTransform.Rotate(rotation);
-
-        // Player Vertical Movement
-        float verticalInput = Input.GetAxis("Vertical");
-        Vector3 moveDirection = playerTransform.forward * verticalInput * moveSpeed * Time.deltaTime;
-        playerTransform.Translate(moveDirection, Space.World);
-        if (verticalInput > 0) //forward
-        {
-            isRunning = true;
-            isWalkingBack = false;
-            runJump = true;
-            anim.SetBool("isRunning", isRunning);
-            anim.SetBool("runJump", runJump);
-            if (Input.GetKeyDown(KeyCode.Space) && IsGrounded())
-            {
-                jump();
-            }
-        }
-        else if (verticalInput < 0)
-        {
-            isRunning = false;
-            isWalkingBack = true;
-            anim.SetBool("isWalkingBack", isWalkingBack);
-
-        }
-        else
-        {
-            isRunning = false;
-            isWalkingBack = false;
-            anim.SetBool("isRunning", isRunning);
-        }
-
-        if (IsGrounded())
-        {
-            isJumping = false;
-            anim.SetBool("Jump", isJumping);
-            anim.SetBool("runJump", isJumping);
-        }
-
-        if(Input.GetKeyDown(KeyCode.Space) && IsGrounded() && verticalInput == 0)
-        {
-            isJumping = true;
-            anim.SetBool("Jump", isJumping);
-            jump();
-        }
     }
+    moveDirection = playerTransform.right * horizontalInput * moveSpeed * Time.deltaTime;
+    playerTransform.Translate(moveDirection, Space.World);
+
+    // Player Vertical Movement
+    float verticalInput = Input.GetAxis("Vertical");
+    moveDirection = playerTransform.forward * verticalInput * moveSpeed * Time.deltaTime;
+    playerTransform.Translate(moveDirection, Space.World);
+
+    // Reset all movement-related animation parameters
+    isRunning = false;
+    isWalkingBack = false;
+
+    if (verticalInput > 0) // forward
+    {
+        isRunning = true;
+        runJump = Input.GetKeyDown(KeyCode.Space) && IsGrounded();
+    }
+    else if (verticalInput < 0)
+    {
+        isWalkingBack = true;
+        isJumping = Input.GetKeyDown(KeyCode.Space) && IsGrounded();
+    }
+        
+    else
+    {
+        isJumping = Input.GetKeyDown(KeyCode.Space) && IsGrounded();
+    }
+    if(horizontalInput > 0 && isStrafing == true)
+    {
+        isStrafingL = true;
+    }
+    else if(horizontalInput < 0 && isStrafing == true)
+    {
+        isStrafingR = true;
+    }
+    else
+    {
+        isStrafingL = false;
+        isStrafingR = false;
+    }
+
+    // Update the animator parameters
+    anim.SetBool("isRunning", isRunning);
+    anim.SetBool("isWalkingBack", isWalkingBack);
+    anim.SetBool("runJump", runJump);
+    anim.SetBool("Jump", isJumping);
+    anim.SetBool("isStrafingL", isStrafingL);
+    anim.SetBool("isStrafingR", isStrafingR);
+    isStrafing = true;
+
+    if (Input.GetKeyDown(KeyCode.Space) && IsGrounded())
+    {
+        jump();
+    }
+}
 
     void jump()
     {
@@ -93,8 +111,6 @@ public class Movement : MonoBehaviour
     {
         // Perform a downward raycast from the player's position
         return Physics.Raycast(transform.position, Vector3.down, groundRaycastDistance, groundLayer);
-        
-
     }
 }
 
