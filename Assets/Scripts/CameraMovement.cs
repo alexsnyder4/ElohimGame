@@ -73,6 +73,9 @@ public class CameraMovement : MonoBehaviour
         mouseY = Mathf.Clamp(mouseY, -45, 45); // Limit vertical camera rotation
         offset = Quaternion.Euler(mouseY, mouseX, 0) * Vector3.forward * -cameraDistance;
         targetPosition = player.position + offset;
+        //Vector3 wantedPosition = targetFollow.position + rotation * dir;
+        //transform.position = Vector3.Lerp (transform.position, wantedPosition, Time.deltaTime * orbitDamp);
+        //transform.LookAt (targetFollow.position);
 
         // Make the camera look at the player
         cameraTransform.LookAt(player);

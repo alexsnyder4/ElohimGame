@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    
+    public PlayerData playerData;
     private Transform playerTransform;
     private Vector3 moveDirection;
     private Animator anim;
@@ -24,7 +24,6 @@ public class Movement : MonoBehaviour
     private bool isStrafing = true;
     private bool isStrafingR = false;
     private bool isStrafingL = false;
-    private float horizontalInput;
 
     void Start()
     {
@@ -36,6 +35,7 @@ public class Movement : MonoBehaviour
 
     void Update()
     {
+    
     // Player Rotation
     float horizontalInput = Input.GetAxis("Horizontal");
     
@@ -53,11 +53,11 @@ public class Movement : MonoBehaviour
     float verticalInput = Input.GetAxis("Vertical");
     moveDirection = playerTransform.forward * verticalInput * moveSpeed * Time.deltaTime;
     playerTransform.Translate(moveDirection, Space.World);
-
     // Reset all movement-related animation parameters
     isRunning = false;
     isWalkingBack = false;
-
+    //sending current position to player data scriptable object
+    playerData.currPosition = playerTransform.position;
     if (verticalInput > 0) // forward
     {
         isRunning = true;
