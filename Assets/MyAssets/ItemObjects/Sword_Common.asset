@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c909622c9f27d3248a94682228262e04, type: 3}
+  m_Name: Sword_Common
+  m_EditorClassIdentifier: 
+  itemName: Common Sword
+  description: A blunt sword? Not good for much...
+  prefab: {fileID: 3213851043470871558, guid: 54c8c9f221349f5478057c6aa027be04, type: 3}
+  icon: {fileID: 0}
+  type: Weapon
+  damage: 5
+  durability: 100
+  defence: 2
