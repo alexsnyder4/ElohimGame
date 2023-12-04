@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Inventory Item Data")]
+[CreateAssetMenu(menuName = "New Item")]
 public class Items : ScriptableObject
 {
     public string itemName;
