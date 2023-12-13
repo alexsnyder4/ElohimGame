@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
@@ -15,33 +17,18 @@ public class CameraMovement : MonoBehaviour
     private Vector3 offset;
     private Vector3 targetPosition;
 
-    // Store the initial position and rotation of the player and camera
-    private Vector3 currPlayerPosition;
-    private Quaternion currPlayerRotation;
-    private Vector3 currCameraPosition;
-    private Quaternion currCameraRotation;
-
     void Start()
     {
         cameraTransform = transform; // Cache the camera's transform
         // Set the initial camera distance
         UpdateCameraDistance(cameraDistance);
-        // Store the initial position and rotation of the player and camera
-        currPlayerPosition = player.position;
-        currPlayerRotation = player.rotation;
-        currCameraPosition = cameraTransform.position;
-        currCameraRotation = cameraTransform.rotation;
     }
 
     void LateUpdate()
     {
         // Capture scroll wheel input
         float scrollInput = Input.GetAxis("Mouse ScrollWheel");
-        //Capture player and camera current pos and rot
-        currPlayerPosition = player.position;
-        currPlayerRotation = player.rotation;
-        currCameraPosition = cameraTransform.position;
-        currCameraRotation = cameraTransform.rotation;
+
         // Adjust camera distance based on scroll input
         cameraDistance = Mathf.Clamp(cameraDistance - scrollInput * zoomSpeed, minDistance, maxDistance);
         UpdateCameraDistance(cameraDistance);
@@ -58,56 +45,49 @@ public class CameraMovement : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
             isRotating = false;
+            // When mouse is released, revert to the starting position
         }
-        
+
         if (isRotating)
         {
-            RotatePlayerWithMouse();
+            MoveCameraWithMouse();
         }
         else
         {
             CameraFollowPlayer();
-        }
-
-        float rotateInput = Input.GetAxis("Horizontal");
-        if (rotateInput != 0)
-        {
-            // Update mouseX based on player's rotation
-            mouseX = player.rotation.eulerAngles.y;
         }
     }
 
     void UpdateCameraDistance(float distance)
     {
         // Update the camera's position based on the provided distance
-        offset = Quaternion.Euler(mouseY, mouseX, 0) * Vector3.forward * -distance;
-        targetPosition = player.position + offset;
+        Vector3 offset = Quaternion.Euler(mouseY, mouseX, 0) * Vector3.forward * -distance;
+        Vector3 targetPosition = player.position + offset;
         cameraTransform.position = targetPosition;
     }
 
-    void RotatePlayerWithMouse()
+    void MoveCameraWithMouse()
     {
-
+        targetPosition = player.TransformPoint(offset);
+        cameraTransform.position = targetPosition;
         mouseX += Input.GetAxis("Mouse X") * rotationSpeed;
         mouseY -= Input.GetAxis("Mouse Y") * rotationSpeed;
         mouseY = Mathf.Clamp(mouseY, -45, 45); // Limit vertical camera rotation
-        offset = Quaternion.Euler(mouseY, 0, 0) * Vector3.forward * -cameraDistance;
+        offset = Quaternion.Euler(mouseY, mouseX, 0) * Vector3.forward * -cameraDistance;
         targetPosition = player.position + offset;
-        player.position = currPlayerPosition;
-        player.rotation = currPlayerRotation;
-        // Rotate both the camera and the player
-        player.rotation = Quaternion.Euler(0, mouseX, 0);
-        cameraTransform.LookAt(player);
-    }
-    
-    void CameraFollowPlayer()
-    {
-        offset = Quaternion.Euler(mouseY, 0, 0) * Vector3.forward * -cameraDistance;
-        targetPosition = player.TransformPoint(offset);
-        cameraTransform.position = targetPosition;
         
         // Make the camera look at the player
         cameraTransform.LookAt(player);
     }
 
+    void CameraFollowPlayer()
+    {
+        mouseX = 0;
+        offset = Quaternion.Euler(mouseY, mouseX, 0) * Vector3.forward * -cameraDistance;
+        targetPosition = player.TransformPoint(offset);
+        cameraTransform.position = targetPosition;
+
+        // Make the camera look at the player
+        cameraTransform.LookAt(player);
+    }
 }

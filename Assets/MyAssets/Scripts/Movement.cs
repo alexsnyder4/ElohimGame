@@ -21,7 +21,7 @@ public class Movement : MonoBehaviour
     private bool isWalkingBack = false;
     private bool runJump = false;
     private bool backJump = false;
-    public bool isStrafing = true;
+    private bool isStrafing = true;
     private bool isStrafingR = false;
     private bool isStrafingL = false;
 
@@ -37,17 +37,13 @@ public class Movement : MonoBehaviour
     
     // Player Rotation
     float horizontalInput = Input.GetAxis("Horizontal");
-
-    if (!Input.GetMouseButtonDown(1))
+    
+    if (!Input.GetKey(KeyCode.LeftShift))
     {
         isStrafing = false;
         // Apply rotation only if Shift key is not held down
         Vector3 rotation = new Vector3(0, horizontalInput * rotationSpeed, 0);
         playerTransform.Rotate(rotation);
-    }
-    if(Input.GetMouseButton(1))
-    {
-        isStrafing = true;
     }
     moveDirection = playerTransform.right * horizontalInput * moveSpeed * Time.deltaTime;
     playerTransform.Translate(moveDirection, Space.World);
