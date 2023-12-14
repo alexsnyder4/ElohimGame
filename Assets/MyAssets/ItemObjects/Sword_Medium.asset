@@ -21,3 +21,6 @@ MonoBehaviour:
   damage: 15
   durability: 100
   defence: 6
+  equippable: 1
+  useable: 0
+  moveToHB: 1

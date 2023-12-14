@@ -15,11 +15,15 @@ public class CameraMovement : MonoBehaviour
     private Vector3 offset;
     private Vector3 targetPosition;
 
+    public RectTransform inventoryPanel; // Reference to your inventory panel
+
     // Store the initial position and rotation of the player and camera
     private Vector3 currPlayerPosition;
     private Quaternion currPlayerRotation;
     private Vector3 currCameraPosition;
     private Quaternion currCameraRotation;
+    private bool isInInventoryMode = false;
+
 
     void Start()
     {
@@ -32,9 +36,10 @@ public class CameraMovement : MonoBehaviour
         currCameraPosition = cameraTransform.position;
         currCameraRotation = cameraTransform.rotation;
     }
-
+    
     void LateUpdate()
     {
+        
         // Capture scroll wheel input
         float scrollInput = Input.GetAxis("Mouse ScrollWheel");
         //Capture player and camera current pos and rot
@@ -47,17 +52,25 @@ public class CameraMovement : MonoBehaviour
         UpdateCameraDistance(cameraDistance);
 
         // Check for right-click input to enable or disable camera rotation
-        if (Input.GetMouseButtonDown(1))
+        if (IsMouseOverInventory())
         {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-            isRotating = true;
+            // Handle inventory mode logic here
+            // ...
         }
-        if (Input.GetMouseButtonUp(1))
+        else
         {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-            isRotating = false;
+            if (Input.GetMouseButtonDown(1))
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+                isRotating = true;
+            }
+            if (Input.GetMouseButtonUp(1))
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+                isRotating = false;
+            }
         }
         
         if (isRotating)
@@ -110,4 +123,23 @@ public class CameraMovement : MonoBehaviour
         cameraTransform.LookAt(player);
     }
 
+    bool IsMouseOverInventory()
+    {
+        if (inventoryPanel == null)
+        {
+            // No inventory panel specified, return false
+            return false;
+        }
+        if(!inventoryPanel.gameObject.activeSelf)
+        {
+            return false;
+        }
+
+        // Convert mouse position to local coordinates of the inventory panel
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            inventoryPanel, Input.mousePosition, null, out Vector2 localPoint);
+
+        // Check if the localPoint is within the inventory panel's boundaries
+        return RectTransformUtility.RectangleContainsScreenPoint(inventoryPanel, Input.mousePosition);
+    }
 }
