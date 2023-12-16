@@ -926,8 +926,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   items: []
+  pd: {fileID: 11400000, guid: 0772883b1a92c8b43ae69c515764df10, type: 2}
   ItemContent: {fileID: 1559431292}
   InventoryItem: {fileID: 387826142803255523, guid: a8c9c82274be82d48aa2f7c6f8febbb4, type: 3}
+  hotbar:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  playerEquippedItems:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!4 &477506833
 Transform:
   m_ObjectHideFlags: 0
@@ -4039,6 +4054,12 @@ MonoBehaviour:
   charActive: 0
   inventoryBtn: {fileID: 1023137878}
   characterBtn: {fileID: 907645466}
+  hotbar:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &1448192869
 GameObject:
   m_ObjectHideFlags: 0

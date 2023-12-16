@@ -10,9 +10,10 @@ using UnityEditorInternal;
 public class ItemSelection : MonoBehaviour
 {
     public Button itemButton;
-    public TMP_Dropdown dropdown;
     public List<Items> currInvList;
     public TMP_Text itemNameInInv;
+    public Items itemToAction;
+    
 
     void Start()
     {
@@ -25,10 +26,6 @@ public class ItemSelection : MonoBehaviour
         currInvList = new List<Items>(InventoryManager.Instance.items);
         // Show the context menu at the button's position
 
-        dropdown.transform.position = itemButton.transform.position;
-
-        // Clear existing options in the dropdown
-        dropdown.ClearOptions();
         Debug.Log(itemNameInInv.text.ToString());
 
         foreach(var inv in currInvList)
@@ -36,11 +33,31 @@ public class ItemSelection : MonoBehaviour
             Debug.Log(inv.itemName);
             if(inv.itemName == itemNameInInv.text.ToString())
             {
-                dropdown.AddOptions(inv.GetDropdownOptions());
+                itemToAction = inv;
+                break;
             }
+            
         }
         // Use the associated scriptable object to generate dropdown options
-        dropdown.Show();
+    }
+    public void Equip()
+    {
+        InventoryManager.Instance.EquipItem(itemToAction);
+    }
+
+    public void Destroy()
+    {
+
+    }
+
+    public void Use()
+    {
+
+    }
+
+    public void Inspect()
+    {
+        
     }
 }
 

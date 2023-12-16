@@ -17,9 +17,16 @@ MonoBehaviour:
   prefab: {fileID: 3213851043470871558, guid: 54c8c9f221349f5478057c6aa027be04, type: 3}
   icon: {fileID: 6176583339189516475, guid: 545f9c74323fe914c829180b85afb1b7, type: 3}
   type: Weapon
-  damage: 5
-  durability: 100
-  defence: 2
   equippable: 1
+  equipSlot: 5
   useable: 0
   moveToHB: 1
+  damage: 5
+  block: 2
+  bloackable: 1
+  armor: 1
+  vitality: 0
+  intelligence: 0
+  fortitude: 0
+  strength: 0
+  agility: 0

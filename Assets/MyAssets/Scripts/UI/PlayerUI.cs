@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -17,6 +18,8 @@ public class PlayerUI : MonoBehaviour
     public bool charActive = false;
     public Button inventoryBtn;
     public Button characterBtn;
+
+    public Items[] hotbar = new Items[5];
 
     // Start is called before the first frame update
     void Start()
@@ -48,5 +51,4 @@ public class PlayerUI : MonoBehaviour
         charPanel.SetActive(!charActive);
         charActive = !charActive;
     }
-    
 }

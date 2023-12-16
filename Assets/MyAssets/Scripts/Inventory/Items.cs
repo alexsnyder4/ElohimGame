@@ -14,34 +14,49 @@ public class Items : ScriptableObject
     public GameObject prefab;
     public Sprite icon;
     public string type;
-    public float damage;
-    public float durability;
-    public float defence;
+    
+    //public float durability;
+    
     public bool equippable;
+    public int equipSlot;
     public bool useable;
     public bool moveToHB;
+
+
+    public float damage;
+    public float block;
+    public bool bloackable;
+    public float armor;   //mitigates damage
+    public float vitality;  //good increase in HP  //?
+    public float intelligence;  //increase in MP  //magic does more adamage  //skill tree for learning spells req higher intel?
+    public float fortitude;     //reduces duration of stuns  //increases health slightly  //increased healing from spells and obj?
+    public float strength;  //increase damage with swords and axes  //extra increase with blunt objects like hammers
+    public float agility;   //influence attackspeed  //buff dash abilities? 
     
 
-    public List<TMP_Dropdown.OptionData> GetDropdownOptions()
+    public List<string> GetDropdownOptions()
     {
-        // Logic to generate and return the dropdown options based on your object
-        List<TMP_Dropdown.OptionData> options = new List<TMP_Dropdown.OptionData>();
+    // Logic to generate and return the dropdown options based on your object
+    List<string> options = new List<string>();
 
-        if (equippable)
-        {
-            options.Add(new TMP_Dropdown.OptionData("Equip"));
-        }
-        if(useable)
-        {
-            options.Add(new TMP_Dropdown.OptionData("Use"));
-        }
-        if(moveToHB)
-        {
-            options.Add(new TMP_Dropdown.OptionData("Quickslot"));
-        }
-
-        options.Add(new TMP_Dropdown.OptionData("Destroy"));
-
-        return options;
+    if (equippable)
+    {
+        options.Add("Equip");
     }
+    if (useable)
+    {
+        options.Add("Use");
+    }
+    if (moveToHB)
+    {
+        options.Add("Quickslot");
+    }
+
+    options.Add("Destroy");
+
+    return options;
+    }
+
+
+    
 }
