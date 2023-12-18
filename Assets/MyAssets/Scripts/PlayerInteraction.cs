@@ -23,7 +23,7 @@ public class PlayerInteraction : MonoBehaviour
 
         foreach (Collider collider in nearbyColliders)
         {
-            if ((collider.CompareTag("Weapon") || collider.CompareTag("Item")))
+            if (collider.CompareTag("Weapon") || collider.CompareTag("Item"))
             {
                 if (Input.GetKeyDown(KeyCode.E))
                 {

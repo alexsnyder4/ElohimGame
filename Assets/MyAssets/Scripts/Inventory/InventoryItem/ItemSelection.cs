@@ -13,21 +13,25 @@ public class ItemSelection : MonoBehaviour
     public List<Items> currInvList;
     public TMP_Text itemNameInInv;
     public Items itemToAction;
+    public Button[] options = new Button[4];
+    public bool optionsExpanded;
+    
     
 
     void Start()
     {
-
+        DisableButtons();
     }
 
     public void ShowContextMenu()
     {
-        Debug.Log("Showing menu");
+        if(InventoryManager.Instance.optionsExpanded)
+        {
+            InventoryManager.Instance.CloseOptions();
+        }
+        InventoryManager.Instance.optionsExpanded = true;
+        EnableButtons();
         currInvList = new List<Items>(InventoryManager.Instance.items);
-        // Show the context menu at the button's position
-
-        Debug.Log(itemNameInInv.text.ToString());
-
         foreach(var inv in currInvList)
         {
             Debug.Log(inv.itemName);
@@ -38,26 +42,42 @@ public class ItemSelection : MonoBehaviour
             }
             
         }
-        // Use the associated scriptable object to generate dropdown options
     }
     public void Equip()
     {
         InventoryManager.Instance.EquipItem(itemToAction);
+        DisableButtons();
     }
 
     public void Destroy()
     {
-
+        DisableButtons();
     }
 
     public void Use()
     {
-
+        DisableButtons();
     }
 
     public void Inspect()
     {
-        
+        DisableButtons();     
+    }
+    public void EnableButtons()
+    {
+        foreach(Button btn in options)
+        {
+            
+            btn.gameObject.SetActive(true);
+        }
+    }
+    public void DisableButtons()
+    {
+        foreach(Button btn in options)
+        {
+            InventoryManager.Instance.optionsExpanded = false;
+            btn.gameObject.SetActive(false);
+        }
     }
 }
 

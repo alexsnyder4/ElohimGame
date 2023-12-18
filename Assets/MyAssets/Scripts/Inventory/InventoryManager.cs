@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class InventoryManager : MonoBehaviour
 {
     public static InventoryManager Instance;
+    public bool optionsExpanded;
     public List<Items> items = new();
     public PlayerData pd;
     public Transform ItemContent;
@@ -29,6 +30,11 @@ public class InventoryManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+    }
+
+    private void Start()
+    {
+        optionsExpanded = false;
     }
 
     public void Add(Items item)
@@ -107,6 +113,13 @@ public class InventoryManager : MonoBehaviour
         else if(item.type == "offhand")
         {
             hotbar[1] = null;
+        }
+    }
+    public void CloseOptions()
+    {
+        foreach(Transform item in ItemContent)
+        {
+            item.gameObject.GetComponent<ItemSelection>().DisableButtons();
         }
     }
     

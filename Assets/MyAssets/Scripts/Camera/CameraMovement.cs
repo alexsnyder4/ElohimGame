@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
@@ -8,12 +9,13 @@ public class CameraMovement : MonoBehaviour
     public float zoomSpeed = 3.0f;
     public float minDistance = 1.0f;
     public float maxDistance = 10.0f;
-
+    public PlayerUI ui;
     private Transform cameraTransform;
     private float mouseX, mouseY;
     private bool isRotating;
     private Vector3 offset;
     private Vector3 targetPosition;
+    public LayerMask groundLayer;
 
     public RectTransform inventoryPanel; // Reference to your inventory panel
 
@@ -39,55 +41,51 @@ public class CameraMovement : MonoBehaviour
     
     void LateUpdate()
     {
-        
-        // Capture scroll wheel input
         float scrollInput = Input.GetAxis("Mouse ScrollWheel");
-        //Capture player and camera current pos and rot
-        currPlayerPosition = player.position;
-        currPlayerRotation = player.rotation;
-        currCameraPosition = cameraTransform.position;
-        currCameraRotation = cameraTransform.rotation;
-        // Adjust camera distance based on scroll input
         cameraDistance = Mathf.Clamp(cameraDistance - scrollInput * zoomSpeed, minDistance, maxDistance);
         UpdateCameraDistance(cameraDistance);
-
-        // Check for right-click input to enable or disable camera rotation
-        if (IsMouseOverInventory())
+        if(ui.invActive)
         {
-            // Handle inventory mode logic here
-            // ...
-        }
-        else
-        {
-            if (Input.GetMouseButtonDown(1))
-            {
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
-                isRotating = true;
-            }
-            if (Input.GetMouseButtonUp(1))
-            {
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
-                isRotating = false;
-            }
-        }
-        
-        if (isRotating)
-        {
-            RotatePlayerWithMouse();
-        }
-        else
-        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            //Capture player and camera current pos and rot
+            currPlayerPosition = player.position;
+            currPlayerRotation = player.rotation;
+            currCameraPosition = cameraTransform.position;
+            currCameraRotation = cameraTransform.rotation;
+            // Adjust camera distance based on scroll input
+            
             CameraFollowPlayer();
+            float rotateInput = Input.GetAxis("Horizontal");
+            if (rotateInput != 0)
+            {
+                // Update mouseX based on player's rotation
+                mouseX = player.rotation.eulerAngles.y;
+            }
         }
-
-        float rotateInput = Input.GetAxis("Horizontal");
-        if (rotateInput != 0)
+        else
         {
-            // Update mouseX based on player's rotation
-            mouseX = player.rotation.eulerAngles.y;
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            //Capture player and camera current pos and rot
+            currPlayerPosition = player.position;
+            currPlayerRotation = player.rotation;
+            currCameraPosition = cameraTransform.position;
+            currCameraRotation = cameraTransform.rotation;
+            // Adjust camera distance based on scroll input
+            
+            RotatePlayerWithMouse();
+            float rotateInput = Input.GetAxis("Horizontal");
+            if (rotateInput != 0)
+            {
+                // Update mouseX based on player's rotation
+                mouseX = player.rotation.eulerAngles.y;
+                
+            }
         }
+        // Capture scroll wheel input
+        
+        
     }
 
     void UpdateCameraDistance(float distance)
@@ -111,6 +109,13 @@ public class CameraMovement : MonoBehaviour
         // Rotate both the camera and the player
         player.rotation = Quaternion.Euler(0, mouseX, 0);
         cameraTransform.LookAt(player);
+        RaycastHit hit;
+            if (Physics.Raycast(targetPosition, Vector3.down, out hit, .2f , groundLayer))
+            {
+                // Adjust the camera's y-position to stay above the ground
+                
+            }
+        
     }
     
     void CameraFollowPlayer()
@@ -121,25 +126,5 @@ public class CameraMovement : MonoBehaviour
         
         // Make the camera look at the player
         cameraTransform.LookAt(player);
-    }
-
-    bool IsMouseOverInventory()
-    {
-        if (inventoryPanel == null)
-        {
-            // No inventory panel specified, return false
-            return false;
-        }
-        if(!inventoryPanel.gameObject.activeSelf)
-        {
-            return false;
-        }
-
-        // Convert mouse position to local coordinates of the inventory panel
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            inventoryPanel, Input.mousePosition, null, out Vector2 localPoint);
-
-        // Check if the localPoint is within the inventory panel's boundaries
-        return RectTransformUtility.RectangleContainsScreenPoint(inventoryPanel, Input.mousePosition);
     }
 }

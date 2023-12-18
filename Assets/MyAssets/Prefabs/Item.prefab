@@ -151,9 +151,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemButton: {fileID: 4710307513737397444}
-  dropdown: {fileID: 0}
   currInvList: []
   itemNameInInv: {fileID: 2724361099164239015}
+  itemToAction: {fileID: 0}
+  options:
+  - {fileID: 5715907205656360536}
+  - {fileID: 63448834912587474}
+  - {fileID: 8295093777193271708}
+  - {fileID: 8575037594645972954}
 --- !u!1 &425781833330297639
 GameObject:
   m_ObjectHideFlags: 0
@@ -442,7 +447,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8250951576637603180
 RectTransform:
   m_ObjectHideFlags: 0
@@ -576,7 +581,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7926917680625737032
 RectTransform:
   m_ObjectHideFlags: 0
@@ -956,7 +961,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1144770816101913409
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1360,7 +1365,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7906751111349131099
 RectTransform:
   m_ObjectHideFlags: 0
