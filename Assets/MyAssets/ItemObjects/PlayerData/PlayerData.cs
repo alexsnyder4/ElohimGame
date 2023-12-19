@@ -11,6 +11,8 @@ public class PlayerData : ScriptableObject
     public float mana;
     public float maxMana;
     public Vector3 currPosition;
+    public float baseDamage;
+
 
     public float armor;   //mitigates damage
     public float vitality;  //good increase in HP  //?
@@ -30,13 +32,18 @@ public class PlayerData : ScriptableObject
 
     public void AddToStats(Items item)
     {
+        //Equipment stats
         armor += item.armor;
         vitality += item.vitality;
         intelligence += item.intelligence;
         fortitude += item.fortitude;
         strength += item.strength;
         agility += item.agility;
-        Debug.Log("Added to stats");
+
+        //Use only stats
+        health += item.health;
+        mana= item.mana;
+
     }
     public void RemoveFromStats(Items item)
     {
@@ -46,7 +53,6 @@ public class PlayerData : ScriptableObject
         fortitude -= item.fortitude;
         strength -= item.strength;
         agility -= item.agility;
-        Debug.Log("Removed from stats");
     }
 
     public void UpdateKit(Items[] kitArr)

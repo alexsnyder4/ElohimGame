@@ -17,11 +17,15 @@ public class Items : ScriptableObject
     
     //public float durability;
     
+    public bool isEquipped;
+    public int numUses;
     public bool equippable;
     public int equipSlot;
     public bool useable;
     public bool moveToHB;
 
+    public float health;
+    public float mana;
 
     public float damage;
     public float block;
@@ -36,25 +40,41 @@ public class Items : ScriptableObject
 
     public List<string> GetDropdownOptions()
     {
-    // Logic to generate and return the dropdown options based on your object
-    List<string> options = new List<string>();
+        // Logic to generate and return the dropdown options based on your object
+        List<string> options = new List<string>();
 
-    if (equippable)
-    {
-        options.Add("Equip");
-    }
-    if (useable)
-    {
-        options.Add("Use");
-    }
-    if (moveToHB)
-    {
-        options.Add("Quickslot");
+        if (equippable)
+        {
+            options.Add("Equip");
+        }
+        if (useable)
+        {
+            options.Add("Use");
+        }
+        if (moveToHB)
+        {
+            options.Add("Quickslot");
+        }
+
+        options.Add("Destroy");
+
+        return options;
     }
 
-    options.Add("Destroy");
-
-    return options;
+    public string GetDefault()
+    {
+        if(useable)
+        {
+            return "useable";
+        }
+        else if(equippable)
+        {
+            return "equippable";
+        }
+        else
+        {
+            return null;
+        }
     }
 
 
