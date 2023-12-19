@@ -18,5 +18,15 @@ public class GameState : ScriptableObject
         playerData.maxHealth = maxHP;
         playerData.mana = currMana;
         playerData.maxMana = maxMana;
+        playerData.baseDamage = 2;
+
+
+        playerData.armor = 1;   //mitigates damage
+        playerData.vitality = 10;  //good increase in HP  //?
+        playerData.intelligence = 5;  //increase in MP  //magic does more adamage  //skill tree for learning spells req higher intel?
+        playerData.fortitude = 5;     //reduces duration of stuns  //increases health slightly  //increased healing from spells and obj?
+        playerData.strength = 5;  //increase damage with swords and axes  //extra increase with blunt objects like hammers
+        playerData.agility = 5;   //influence attackspeed  //buff dash abilities? 
+
     }
 }

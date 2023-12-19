@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,7 +14,9 @@ public class InventoryManager : MonoBehaviour
     public PlayerData pd;
     public Transform ItemContent;
     public GameObject InventoryItem;
-    public Items[] hotbar = new Items[5];
+
+    public Items[] hotbarItems = new Items[5];
+
 
     [SerializeField]
     public Items[] playerEquippedItems = new Items[7];
@@ -79,20 +82,22 @@ public class InventoryManager : MonoBehaviour
             {
                 playerEquippedItems[equipSlot] = item;
                 pd.AddToStats(item);
+                item.isEquipped = true;
             }
             else
             {
                 UnequipItem(playerEquippedItems[equipSlot]);
                 playerEquippedItems[equipSlot] = item;
                 pd.AddToStats(item);
+                item.isEquipped = true;
             }
             if(item.type == "Weapon")
             {
-                hotbar[0] = item;
+                hotbarItems[0] = item;
             }
             else if(item.type == "offhand")
             {
-                hotbar[1] = item;
+                hotbarItems[1] = item;
             }
         }
         else
@@ -105,15 +110,17 @@ public class InventoryManager : MonoBehaviour
     public void UnequipItem(Items item)
     {
         pd.RemoveFromStats(playerEquippedItems[item.equipSlot]);
+        item.isEquipped = false;
         playerEquippedItems[item.equipSlot] = null;
         if(item.type == "Weapon")
         {
-            hotbar[0] = null;
+            hotbarItems[0] = null;
         }
         else if(item.type == "offhand")
         {
-            hotbar[1] = null;
+            hotbarItems[1] = null;
         }
+        pd.UpdateKit(playerEquippedItems);
     }
     public void CloseOptions()
     {
@@ -122,6 +129,38 @@ public class InventoryManager : MonoBehaviour
             item.gameObject.GetComponent<ItemSelection>().DisableButtons();
         }
     }
+
+    public void UseItem(Items item)
+    {
+        pd.AddToStats(item);
+    }
     
+    public void DestroyItem(Items item)
+    {
+        // Remove the item from the items list
+        items.Remove(item);
+
+        // Check if the item is equipped and unequip it
+        if(item.isEquipped)
+        {
+            UnequipItem(item);
+        }
+
+        // Check if the item is in the hotbar and clear the corresponding slot
+        for (int i = 0; i < hotbarItems.Length; i++)
+        {
+            if (hotbarItems[i] == item)
+            {
+                hotbarItems[i] = null;
+            }
+        }
+
+        // Update the displayed inventory
+        ListItems();
+    }
+    public void EquipItemToHotbarSlot(Items item, int slot)
+    {
+        hotbarItems[slot] = item;
+    }
 }
 
