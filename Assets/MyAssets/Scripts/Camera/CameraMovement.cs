@@ -1,4 +1,5 @@
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
@@ -11,6 +12,7 @@ public class CameraMovement : MonoBehaviour
     public float maxDistance = 10.0f;
     public PlayerUI ui;
     private Transform cameraTransform;
+    public Transform playerHead;
     private float mouseX, mouseY;
     private bool isRotating;
     private Vector3 offset;
@@ -41,6 +43,7 @@ public class CameraMovement : MonoBehaviour
     
     void LateUpdate()
     {
+
         float scrollInput = Input.GetAxis("Mouse ScrollWheel");
         cameraDistance = Mathf.Clamp(cameraDistance - scrollInput * zoomSpeed, minDistance, maxDistance);
         UpdateCameraDistance(cameraDistance);
@@ -92,39 +95,51 @@ public class CameraMovement : MonoBehaviour
     {
         // Update the camera's position based on the provided distance
         offset = Quaternion.Euler(mouseY, mouseX, 0) * Vector3.forward * -distance;
-        targetPosition = player.position + offset;
+        targetPosition = playerHead.position + offset;
         cameraTransform.position = targetPosition;
     }
 
     void RotatePlayerWithMouse()
+{
+    mouseX += Input.GetAxis("Mouse X") * rotationSpeed;
+    RaycastHit hit;
+    Debug.Log(Input.GetAxis("Mouse Y") * rotationSpeed);
+    if(Physics.Raycast(targetPosition, Vector3.down, out hit, .5f, groundLayer) && (Input.GetAxis("Mouse Y") * rotationSpeed > 0))
     {
-
-        mouseX += Input.GetAxis("Mouse X") * rotationSpeed;
-        mouseY -= Input.GetAxis("Mouse Y") * rotationSpeed;
-        mouseY = Mathf.Clamp(mouseY, -45, 45); // Limit vertical camera rotation
-        offset = Quaternion.Euler(mouseY, 0, 0) * Vector3.forward * -cameraDistance;
-        targetPosition = player.position + offset;
-        player.position = currPlayerPosition;
-        player.rotation = currPlayerRotation;
-        // Rotate both the camera and the player
-        player.rotation = Quaternion.Euler(0, mouseX, 0);
-        cameraTransform.LookAt(player);
-        RaycastHit hit;
-            if (Physics.Raycast(targetPosition, Vector3.down, out hit, .2f , groundLayer))
-            {
-                // Adjust the camera's y-position to stay above the ground
-                
-            }
-        
+        ;
     }
+    else if(!Physics.Raycast(targetPosition, Vector3.down, out hit, 30, groundLayer) && (Input.GetAxis("Mouse Y") * rotationSpeed > 0))
+    {
+        mouseY += 2;
+    }
+    else
+    {
+        mouseY -= Input.GetAxis("Mouse Y") * rotationSpeed;
+    }
+    
+    mouseY = Mathf.Clamp(mouseY, -45, 80);
+    offset = Quaternion.Euler(mouseY, 0, 0) * Vector3.forward * -cameraDistance;
+    // Limit vertical camera rotation
+    // Perform raycast to check for ground
+    
+
+    
+    targetPosition = playerHead.position + offset;
+    player.position = currPlayerPosition;
+    player.rotation = currPlayerRotation;
+
+    // Rotate both the camera and the player
+    player.rotation = Quaternion.Euler(0, mouseX, 0);
+    cameraTransform.LookAt(playerHead);
+}
     
     void CameraFollowPlayer()
     {
         offset = Quaternion.Euler(mouseY, 0, 0) * Vector3.forward * -cameraDistance;
-        targetPosition = player.TransformPoint(offset);
+        targetPosition = playerHead.TransformPoint(offset);
         cameraTransform.position = targetPosition;
         
         // Make the camera look at the player
-        cameraTransform.LookAt(player);
+        cameraTransform.LookAt(playerHead);
     }
 }
