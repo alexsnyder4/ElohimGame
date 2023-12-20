@@ -9,6 +9,7 @@ public class Movement : MonoBehaviour
     private Vector3 moveDirection;
     private Animator anim;
     public float moveSpeed = 5.0f; // Adjust the movement speed.
+    public float sprintSpeed = 10.0f; //Adjust movement speed
     public float rotationSpeed = 3.0f; // Adjust the rotation speed.
     public float jumpForce = 60.0f;
     public float groundRaycastDistance = 0.25f;
@@ -24,6 +25,7 @@ public class Movement : MonoBehaviour
     public bool isStrafing = true;
     private bool isStrafingR = false;
     private bool isStrafingL = false;
+    private bool isSprinting = false;
 
     void Start()
     {
@@ -49,13 +51,44 @@ public class Movement : MonoBehaviour
     {
         isStrafing = true;
     }
-    moveDirection = playerTransform.right * horizontalInput * moveSpeed * Time.deltaTime;
-    playerTransform.Translate(moveDirection, Space.World);
+        //Player Horizontal Movement
+        //Sprint/Walk logic
+        if(!Input.GetKey(KeyCode.LeftShift))
+        {
+            //walk
+            isSprinting = false;
+            moveDirection = playerTransform.right * horizontalInput * moveSpeed * Time.deltaTime;
+            playerTransform.Translate(moveDirection, Space.World);
+        }
+        
+        else
+        {
+            //Sprint
+            isSprinting = true;
+            moveDirection = playerTransform.right * horizontalInput * sprintSpeed * Time.deltaTime;
+            playerTransform.Translate(moveDirection, Space.World);
+        }
 
-    // Player Vertical Movement
-    float verticalInput = Input.GetAxis("Vertical");
-    moveDirection = playerTransform.forward * verticalInput * moveSpeed * Time.deltaTime;
-    playerTransform.Translate(moveDirection, Space.World);
+        float verticalInput = Input.GetAxis("Vertical");
+
+        // Player Vertical Movement
+        if (!Input.GetKey(KeyCode.LeftShift))
+        {
+            isSprinting = false;
+            moveDirection = playerTransform.forward * verticalInput * moveSpeed * Time.deltaTime;
+            playerTransform.Translate(moveDirection, Space.World);
+        }
+
+        else
+        {
+
+            //sprint
+            isSprinting = true;
+            moveDirection = playerTransform.forward * verticalInput * sprintSpeed * Time.deltaTime;
+            playerTransform.Translate(moveDirection, Space.World);
+        }
+    
+    
     // Reset all movement-related animation parameters
     isRunning = false;
     isWalkingBack = false;
@@ -97,6 +130,7 @@ public class Movement : MonoBehaviour
     anim.SetBool("Jump", isJumping);
     anim.SetBool("isStrafingL", isStrafingL);
     anim.SetBool("isStrafingR", isStrafingR);
+        anim.SetBool("isSprinting", isSprinting);
     isStrafing = true;
 
     if (Input.GetKeyDown(KeyCode.Space) && IsGrounded())
@@ -115,6 +149,8 @@ public class Movement : MonoBehaviour
         // Perform a downward raycast from the player's position
         return Physics.Raycast(transform.position, Vector3.down, groundRaycastDistance, groundLayer);
     }
+
+    
 }
 
 
