@@ -106,7 +106,7 @@ public class InventoryManager : MonoBehaviour
         pd.RemoveFromStats(playerEquippedItems[item.equipSlot]);
         item.isEquipped = false;
         playerEquippedItems[item.equipSlot] = null;
-
+    
         pd.UpdateKit(playerEquippedItems);
     }
     public void CloseOptions()
