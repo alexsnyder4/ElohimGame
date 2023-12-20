@@ -43,7 +43,7 @@ public class ItemSelection : MonoBehaviour
         }
     }
 
-    void HandleHotbarSelectionInput()
+   void HandleHotbarSelectionInput()
     {
         // Check if any of the number keys (1-5) are pressed
         for (int i = 1; i <= 5; i++)
@@ -51,23 +51,12 @@ public class ItemSelection : MonoBehaviour
             if (Input.GetKeyDown(i.ToString()))
             {
                 // Equip the item to the corresponding hotbar slot
-                EquipItemToHotbar(i);
+              //  EquipItemToHotbar(i);
             }
         }
     }
 
-    void EquipItemToHotbar(int hotbarIndex)
-    {
-        // Check if any UI elements were hit
-        if (results.Count > 0)
-        {
-            // Get the item associated with the hovered UI element
-            Items hoveredItem = results[0].gameObject.GetComponent<ItemSelection>().itemToAction;
 
-            // Equip the item to the specified hotbar slot
-            inventoryManager.EquipItemToHotbarSlot(hoveredItem, hotbarIndex);
-        }
-    }
     public void ShowContextMenu()
     {
         if(InventoryManager.Instance.optionsExpanded)

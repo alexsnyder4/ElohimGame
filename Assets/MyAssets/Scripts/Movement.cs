@@ -25,6 +25,7 @@ public class Movement : MonoBehaviour
     public bool isStrafing = true;
     private bool isStrafingR = false;
     private bool isStrafingL = false;
+    private bool isSprinting = false;
 
     void Start()
     {
@@ -55,14 +56,15 @@ public class Movement : MonoBehaviour
         if(!Input.GetKey(KeyCode.LeftShift))
         {
             //walk
+            isSprinting = false;
             moveDirection = playerTransform.right * horizontalInput * moveSpeed * Time.deltaTime;
             playerTransform.Translate(moveDirection, Space.World);
         }
         
         else
-        { 
+        {
             //Sprint
-            
+            isSprinting = true;
             moveDirection = playerTransform.right * horizontalInput * sprintSpeed * Time.deltaTime;
             playerTransform.Translate(moveDirection, Space.World);
         }
@@ -72,15 +74,16 @@ public class Movement : MonoBehaviour
         // Player Vertical Movement
         if (!Input.GetKey(KeyCode.LeftShift))
         {
+            isSprinting = false;
             moveDirection = playerTransform.forward * verticalInput * moveSpeed * Time.deltaTime;
             playerTransform.Translate(moveDirection, Space.World);
         }
 
         else
         {
-   
+
             //sprint
-            
+            isSprinting = true;
             moveDirection = playerTransform.forward * verticalInput * sprintSpeed * Time.deltaTime;
             playerTransform.Translate(moveDirection, Space.World);
         }
@@ -127,6 +130,7 @@ public class Movement : MonoBehaviour
     anim.SetBool("Jump", isJumping);
     anim.SetBool("isStrafingL", isStrafingL);
     anim.SetBool("isStrafingR", isStrafingR);
+        anim.SetBool("isSprinting", isSprinting);
     isStrafing = true;
 
     if (Input.GetKeyDown(KeyCode.Space) && IsGrounded())

@@ -5116,6 +5116,7 @@ MonoBehaviour:
   playerData: {fileID: 11400000, guid: 0772883b1a92c8b43ae69c515764df10, type: 2}
   playerTransform: {fileID: 6938271243920070729}
   moveSpeed: 5
+  sprintSpeed: 10
   rotationSpeed: 3
   jumpForce: 60
   groundRaycastDistance: 0.25
