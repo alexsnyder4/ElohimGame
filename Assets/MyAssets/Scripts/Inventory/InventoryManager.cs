@@ -15,7 +15,9 @@ public class InventoryManager : MonoBehaviour
     public Transform ItemContent;
     public GameObject InventoryItem;
 
+
     public Items[] hotbarItems = new Items[5];
+    public Image[] hotbarIcon = new Image[5];
 
 
     [SerializeField]
@@ -91,14 +93,6 @@ public class InventoryManager : MonoBehaviour
                 pd.AddToStats(item);
                 item.isEquipped = true;
             }
-            if(item.type == "Weapon")
-            {
-                hotbarItems[0] = item;
-            }
-            else if(item.type == "offhand")
-            {
-                hotbarItems[1] = item;
-            }
         }
         else
         {
@@ -112,14 +106,7 @@ public class InventoryManager : MonoBehaviour
         pd.RemoveFromStats(playerEquippedItems[item.equipSlot]);
         item.isEquipped = false;
         playerEquippedItems[item.equipSlot] = null;
-        if(item.type == "Weapon")
-        {
-            hotbarItems[0] = null;
-        }
-        else if(item.type == "offhand")
-        {
-            hotbarItems[1] = null;
-        }
+
         pd.UpdateKit(playerEquippedItems);
     }
     public void CloseOptions()
@@ -158,9 +145,9 @@ public class InventoryManager : MonoBehaviour
         // Update the displayed inventory
         ListItems();
     }
-    public void EquipItemToHotbarSlot(Items item, int slot)
+    public bool EquipItemToHotbarSlot(Items item, int slot)
     {
-        hotbarItems[slot] = item;
+        return hotbarItems[slot] = item;
     }
 }
 

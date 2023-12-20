@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEditorInternal;
+using Unity.VisualScripting;
 
 
 public class ItemSelection : MonoBehaviour
@@ -13,59 +14,92 @@ public class ItemSelection : MonoBehaviour
     public TMP_Text itemNameInInv;
     public Items itemToAction;
     public Button[] options = new Button[5];
+    public bool isHotbarButton;
     public bool optionsExpanded;
-    public InventoryManager inventoryManager;
-    
+    private bool hotbarSelectionActive = false;
+    Color clear = new Color(1f, 1f, 1f, 0f);
+    Color full = new Color(1f,1f,1f, 255f);
     
 
     void Start()
     {
-        DisableButtons();
-        currInvList = new List<Items>(InventoryManager.Instance.items);
-        foreach(var inv in currInvList)
+        if(!isHotbarButton)
         {
-            Debug.Log(inv.itemName);
-            if(inv.itemName == itemNameInInv.text.ToString())
-            {
-                itemToAction = inv;
-                break;
-            }
-            
+            DisableButtons();
         }
+        itemToAction = null;
+        hotbarSelectionActive = false;
     }
+
     void Update()
     {
-        // Check if the mouse is over a UI element
-        if (EventSystem.current.IsPointerOverGameObject())
+        // Check for keyboard input only if hotbar selection is active
+        if (hotbarSelectionActive)
         {
-            // Handle keyboard input for hotbar selection
+            if(itemToAction == null)
+            {
+                currInvList = new List<Items>(InventoryManager.Instance.items);
+                foreach(var inv in currInvList)
+                {
+                    if(inv.itemName == itemNameInInv.text.ToString())
+                    {
+                        itemToAction = inv;
+                        break;
+                    }
+                }
+            }
+            
+            Debug.Log("ActiveSelection");
             HandleHotbarSelectionInput();
         }
     }
-
-    void HandleHotbarSelectionInput()
+    public void OnPointerEnter()
     {
-        // Check if any of the number keys (1-5) are pressed
-        for (int i = 1; i <= 5; i++)
+        hotbarSelectionActive = true;
+    }
+    public void OnPointerExit()
+    {
+        hotbarSelectionActive = false;
+    }
+
+
+
+
+    public void HandleHotbarSelectionInput()
+    {
+        if (EventSystem.current.IsPointerOverGameObject())
         {
-            if (Input.GetKeyDown(i.ToString()))
+            Debug.Log("Hovering");
+            if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-                // Equip the item to the corresponding hotbar slot
-                EquipItemToHotbar(i);
+                Debug.Log("Alpha1");
+                EquipItemToHotbar(0);
+            }
+            else if(Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                EquipItemToHotbar(1);
+            }
+            else if(Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                EquipItemToHotbar(2);
+            }
+            else if(Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                EquipItemToHotbar(3);
+            }
+            else if(Input.GetKeyDown(KeyCode.Alpha5))
+            {
+                EquipItemToHotbar(4);
             }
         }
     }
 
-    void EquipItemToHotbar(int hotbarIndex)
+    public void EquipItemToHotbar(int hotbarIndex)
     {
-        // Check if any UI elements were hit
-        if (results.Count > 0)
+        if(InventoryManager.Instance.EquipItemToHotbarSlot(itemToAction, hotbarIndex))
         {
-            // Get the item associated with the hovered UI element
-            Items hoveredItem = results[0].gameObject.GetComponent<ItemSelection>().itemToAction;
-
-            // Equip the item to the specified hotbar slot
-            inventoryManager.EquipItemToHotbarSlot(hoveredItem, hotbarIndex);
+            InventoryManager.Instance.hotbarIcon[hotbarIndex].sprite = itemToAction.icon;
+            InventoryManager.Instance.hotbarIcon[hotbarIndex].color = full;
         }
     }
     public void ShowContextMenu()
@@ -130,17 +164,13 @@ public class ItemSelection : MonoBehaviour
         }
     }
 
-    public void OnButtonClick()
+    public void HotbarSelection(int num)
     {
-        var currInvList = new List<Items>(InventoryManager.Instance.items);
-        foreach(var inv in currInvList)
+        itemToAction = InventoryManager.Instance.hotbarItems[num];
+        if(itemToAction == null)
         {
-            if(inv.itemName == itemNameInInv.text.ToString())
-            {
-                itemToAction = inv;
-                break;
-            }
-            
+            Debug.Log("Null item to action");
+            return;
         }
         string defaultAction = itemToAction.GetDefault();
         if(defaultAction == "useable")
@@ -150,6 +180,7 @@ public class ItemSelection : MonoBehaviour
         else if(defaultAction == "equippable")
         {
             InventoryManager.Instance.EquipItem(itemToAction);
+            Debug.Log("Equipping");
         }
     }
 

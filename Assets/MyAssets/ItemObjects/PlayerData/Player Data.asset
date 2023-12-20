@@ -12,6 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cc63752d4f6e8c4b8e2a00982538a34, type: 3}
   m_Name: Player Data
   m_EditorClassIdentifier: 
-  health: 0
-  mana: 0
-  currPosition: {x: 0, y: 0, z: 0}
+  health: 100
+  maxHealth: 100
+  mana: 50
+  maxMana: 50
+  currPosition: {x: -1126.5577, y: 87.29939, z: 530.8975}
+  baseDamage: 2
+  armor: 1
+  vitality: 10
+  intelligence: 5
+  fortitude: 5
+  strength: 5
+  agility: 5
+  charKit:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 5e03b0691eb045347acba17a755a17ef, type: 2}
+  - {fileID: 0}

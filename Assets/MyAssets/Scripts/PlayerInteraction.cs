@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerInteraction : MonoBehaviour
 {
@@ -10,6 +12,8 @@ public class PlayerInteraction : MonoBehaviour
     public Transform leftHand;
     public InventoryManager inventoryManager;
     public Collider[] nearbyColliders;
+    public Button[] hotbarbtns = new Button[5];
+    public PlayerUI ui;
 
     void Start()
     {
@@ -36,6 +40,29 @@ public class PlayerInteraction : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.P) && heldItem != null)
         {
             dropObject(heldItem.GetComponent<Collider>());
+        }
+        if(!ui.invActive)
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                hotbarbtns[0].onClick.Invoke();
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                hotbarbtns[1].onClick.Invoke();
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                hotbarbtns[2].onClick.Invoke();
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                hotbarbtns[3].onClick.Invoke();
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha5))
+            {
+                hotbarbtns[4].onClick.Invoke();
+            }
         }
     }
 

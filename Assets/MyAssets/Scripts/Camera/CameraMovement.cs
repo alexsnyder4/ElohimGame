@@ -103,7 +103,6 @@ public class CameraMovement : MonoBehaviour
 {
     mouseX += Input.GetAxis("Mouse X") * rotationSpeed;
     RaycastHit hit;
-    Debug.Log(Input.GetAxis("Mouse Y") * rotationSpeed);
     if(Physics.Raycast(targetPosition, Vector3.down, out hit, .5f, groundLayer) && (Input.GetAxis("Mouse Y") * rotationSpeed > 0))
     {
         ;

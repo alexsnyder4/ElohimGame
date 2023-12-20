@@ -18,10 +18,14 @@ MonoBehaviour:
   prefab: {fileID: 3213851043470871558, guid: 54c8c9f221349f5478057c6aa027be04, type: 3}
   icon: {fileID: 1356428217, guid: 5fef94a52f1e89341b5729dd9daed719, type: 3}
   type: Weapon
+  isEquipped: 1
+  numUses: 0
   equippable: 1
   equipSlot: 5
   useable: 0
   moveToHB: 1
+  health: 0
+  mana: 0
   damage: 15
   block: 4
   bloackable: 1

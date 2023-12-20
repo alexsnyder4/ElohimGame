@@ -19,7 +19,7 @@ public class PlayerUI : MonoBehaviour
     public Button inventoryBtn;
     public Button characterBtn;
 
-    public Items[] hotbar = new Items[5];
+    
 
     // Start is called before the first frame update
     void Start()
