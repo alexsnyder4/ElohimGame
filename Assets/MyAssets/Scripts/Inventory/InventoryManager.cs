@@ -14,6 +14,7 @@ public class InventoryManager : MonoBehaviour
     public PlayerData pd;
     public Transform ItemContent;
     public GameObject InventoryItem;
+    public CharacterPanelScript charPanel;
 
 
     public Items[] hotbarItems = new Items[5];
@@ -93,12 +94,15 @@ public class InventoryManager : MonoBehaviour
                 pd.AddToStats(item);
                 item.isEquipped = true;
             }
+            
         }
         else
         {
             Debug.LogError("Invalid equipSlot value: " + equipSlot);
         }
+        
         pd.UpdateKit(playerEquippedItems);
+        charPanel.UpdateCharacterLoadout();
     }
 
     public void UnequipItem(Items item)
@@ -149,5 +153,6 @@ public class InventoryManager : MonoBehaviour
     {
         return hotbarItems[slot] = item;
     }
+
 }
 
