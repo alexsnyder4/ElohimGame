@@ -14,6 +14,7 @@ public class Items : ScriptableObject
     public GameObject prefab;
     public Sprite icon;
     public string type;
+    public string rarity;
     
     //public float durability;
     

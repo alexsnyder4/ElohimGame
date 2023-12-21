@@ -10,28 +10,28 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c909622c9f27d3248a94682228262e04, type: 3}
-  m_Name: Sword_Medium
+  m_Name: Shield_Common
   m_EditorClassIdentifier: 
-  itemName: ' Medium Sword'
-  description: Forged by an expert blacksmith, this weapon is strong, sturdy, and
-    sharp.
-  prefab: {fileID: 4334720229974137441, guid: 1bc417e2afe2e834fad5253a6b601f5b, type: 3}
-  icon: {fileID: 1356428217, guid: 5fef94a52f1e89341b5729dd9daed719, type: 3}
-  type: Weapon
-  isEquipped: 0
+  itemName: Common Shield
+  description: A shield with some chunks missing.
+  prefab: {fileID: 5996680578629692151, guid: a71d1f9b3c3dfdf4f8190625852fd277, type: 3}
+  icon: {fileID: 21300000, guid: 8c9bfd928f78cb541b9b79cfb995e5ae, type: 3}
+  type: Shield
+  rarity: Common
+  isEquipped: 1
   numUses: 0
   equippable: 1
-  equipSlot: 5
+  equipSlot: 6
   useable: 0
   moveToHB: 1
   health: 0
   mana: 0
-  damage: 15
-  block: 4
-  bloackable: 1
-  armor: 2
-  vitality: 3
+  damage: 2
+  block: 10
+  bloackable: 0
+  armor: 5
+  vitality: 0
   intelligence: 0
-  fortitude: 1
-  strength: 3
-  agility: 2
+  fortitude: 0
+  strength: 0
+  agility: 0

@@ -6,12 +6,12 @@ public class CharacterPanelScript : MonoBehaviour
 {
     public Items[] playersItems = new Items[7];
     public Transform Head;
-    public GameObject Chest;
-    public GameObject Legs;
-    public GameObject Gloves;
-    public GameObject Boots;
+    public Transform Chest;
+    public Transform Legs;
+    public Transform Gloves;
+    public Transform Boots;
     public Transform RHand;
-    public GameObject LHand;
+    public Transform LHand;
     public PlayerData pd;
     // Start is called before the first frame update
     void Start()
@@ -26,7 +26,7 @@ public class CharacterPanelScript : MonoBehaviour
     }
     public void UpdateCharacterLoadout()
     {
-        ResetParent(RHand);
+        
         foreach(Items item in pd.charKit)
         {
             if(item == null)
@@ -37,6 +37,7 @@ public class CharacterPanelScript : MonoBehaviour
             switch(item.equipSlot)
             {
                 case 0:
+                ResetParent(Head);
                     instantiatedItem = Instantiate(item.prefab, Head.transform);
                 break;
 
@@ -50,15 +51,19 @@ public class CharacterPanelScript : MonoBehaviour
                 break;
 
                 case 4:
+                    
                 break;
 
                 case 5:
                     Debug.Log("Case 5");
+                    ResetParent(RHand);
                     instantiatedItem = Instantiate(item.prefab, RHand.transform);
 
                 break;
 
                 case 6:
+                    ResetParent(LHand);
+                    instantiatedItem = Instantiate(item.prefab, LHand.transform);
                 break;
             }
             Collider collider = instantiatedItem.GetComponent<Collider>();
