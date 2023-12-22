@@ -8,6 +8,7 @@ TagManager:
   - LHand
   - Weapon
   - SphereCollider
+  - Enemy
   layers:
   - Default
   - TransparentFX
