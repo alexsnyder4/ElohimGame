@@ -40,4 +40,5 @@ public class PlayerCombat : MonoBehaviour
         animator.SetLayerWeight(0, 1 - combatLayerWeight); // Reduce influence of base layer when in combat
         animator.SetLayerWeight(1, combatLayerWeight); // Increase influence of combat layer when in combat
     }
+
 }
