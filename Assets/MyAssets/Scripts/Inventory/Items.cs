@@ -28,6 +28,7 @@ public class Items : ScriptableObject
     public float health;
     public float mana;
 
+    public float expValue;
     public float damage;
     public float block;
     public bool bloackable;

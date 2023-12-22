@@ -5,12 +5,21 @@ using UnityEngine;
 public class EnemyHealth : MonoBehaviour
 { 
 
-    public int maxHealth = 100;
-    private int currentHealth;
+    public float maxHealth;
+    public float currentHealth;
+    public Items itemsComponent;
+    public EnemyUI ui;
 
     private void Start()
     {
-        currentHealth = maxHealth;
+
+        if (itemsComponent == null)
+        {
+            Debug.LogError("Items component not found on the parent GameObject.");
+        }
+        maxHealth = itemsComponent.health;
+        currentHealth = itemsComponent.health;
+        ui.UpdateHealthBar(currentHealth,maxHealth);
     }
 
     public void TakeDamage(int damage)
@@ -18,7 +27,7 @@ public class EnemyHealth : MonoBehaviour
         Debug.Log("took Damage");
         // Reduce the current health by the damage amount
         currentHealth -= damage;
-
+        ui.UpdateHealthBar(currentHealth, maxHealth);
         // Check if the enemy is dead
         if (currentHealth <= 0)
         {

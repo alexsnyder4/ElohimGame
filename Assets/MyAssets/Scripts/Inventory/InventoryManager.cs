@@ -73,10 +73,9 @@ public class InventoryManager : MonoBehaviour
 
     public void EquipItem(Items item)
     {
-
         // Check the equipSlot value to determine where to place the item in the array
         int equipSlot = item.equipSlot;
-
+    
         // Ensure the equipSlot is within the valid range
         if (equipSlot >= 0 && equipSlot < playerEquippedItems.Length)
         {
@@ -94,7 +93,6 @@ public class InventoryManager : MonoBehaviour
                 pd.AddToStats(item);
                 item.isEquipped = true;
             }
-            
         }
         else
         {
@@ -152,6 +150,11 @@ public class InventoryManager : MonoBehaviour
     public bool EquipItemToHotbarSlot(Items item, int slot)
     {
         return hotbarItems[slot] = item;
+    }
+
+    public void SetColliders()
+    {
+
     }
 
 }

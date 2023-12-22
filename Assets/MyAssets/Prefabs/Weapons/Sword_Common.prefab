@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: -1039835382014307260}
   - component: {fileID: 1049063530636566552}
   - component: {fileID: -8696752954036667274}
+  - component: {fileID: 2319576035685957120}
   m_Layer: 8
   m_Name: Sword_Common
   m_TagString: Weapon
@@ -129,3 +130,16 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 2763774367042099228, guid: 26430834ea307e24083f9e03d7fc4f0f, type: 3}
+--- !u!114 &2319576035685957120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3213851043470871558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e94c215ea13569e4e86015d88793453b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageAmount: 10

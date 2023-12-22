@@ -10,27 +10,27 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c909622c9f27d3248a94682228262e04, type: 3}
-  m_Name: Shield_Common
+  m_Name: Healing_Potion
   m_EditorClassIdentifier: 
-  itemName: Common Shield
-  description: A shield with some chunks missing.
-  prefab: {fileID: 5996680578629692151, guid: a71d1f9b3c3dfdf4f8190625852fd277, type: 3}
-  icon: {fileID: 21300000, guid: 8c9bfd928f78cb541b9b79cfb995e5ae, type: 3}
-  type: Shield
-  rarity: Common
-  isEquipped: 1
+  itemName: Health Potion
+  description: 
+  prefab: {fileID: 0}
+  icon: {fileID: 0}
+  type: 
+  rarity: 
+  isEquipped: 0
   numUses: 0
-  equippable: 1
-  equipSlot: 6
+  equippable: 0
+  equipSlot: 0
   useable: 0
-  moveToHB: 1
+  moveToHB: 0
   health: 0
   mana: 0
   expValue: 0
-  damage: 2
-  block: 10
+  damage: 0
+  block: 0
   bloackable: 0
-  armor: 5
+  armor: 0
   vitality: 0
   intelligence: 0
   fortitude: 0

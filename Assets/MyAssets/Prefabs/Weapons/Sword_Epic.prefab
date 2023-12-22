@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: -835070593464224655}
   - component: {fileID: 8473919647538794227}
   - component: {fileID: -3544616995014047334}
+  - component: {fileID: 6811076620036805746}
   m_Layer: 8
   m_Name: Sword_Epic
   m_TagString: Weapon
@@ -129,3 +130,16 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 1062120985105442271, guid: 57e71afe94c8e1e4d9b5a12c31bd1f83, type: 3}
+--- !u!114 &6811076620036805746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1645786095522272344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e94c215ea13569e4e86015d88793453b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageAmount: 10

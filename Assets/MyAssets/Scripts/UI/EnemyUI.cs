@@ -1,9 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyUI : MonoBehaviour
 {
+    public Image hpBar;
+    
+
+    void Start()
+    {
+        hpBar = GetComponent<Image>();
+    }
 
     private void Update()
     {
@@ -17,4 +25,8 @@ public class EnemyUI : MonoBehaviour
         transform.rotation = rotation;
     }
 
+    public void UpdateHealthBar(float currentHp, float maxHp)
+    {
+        hpBar.fillAmount = currentHp / maxHp;
+    }
 }

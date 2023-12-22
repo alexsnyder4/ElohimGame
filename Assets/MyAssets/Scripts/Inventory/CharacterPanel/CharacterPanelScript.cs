@@ -37,37 +37,58 @@ public class CharacterPanelScript : MonoBehaviour
             switch(item.equipSlot)
             {
                 case 0:
-                ResetParent(Head);
+                    ResetParent(Head);
                     instantiatedItem = Instantiate(item.prefab, Head.transform);
+                    Collider collider = instantiatedItem.GetComponent<Collider>();
+                    collider.enabled = false;
                 break;
 
                 case 1:
+                    ResetParent(Chest);
+                    instantiatedItem = Instantiate(item.prefab, Head.transform);
+                    collider = instantiatedItem.GetComponent<Collider>();
+                    collider.enabled = false;
                 break;
 
                 case 2:
+                    ResetParent(Legs);
+                    instantiatedItem = Instantiate(item.prefab, Head.transform);
+                    collider = instantiatedItem.GetComponent<Collider>();
+                    collider.enabled = false;
                 break;
 
                 case 3:
+                    ResetParent(Gloves);
+                    instantiatedItem = Instantiate(item.prefab, Head.transform);
+                    collider = instantiatedItem.GetComponent<Collider>();
+                    collider.enabled = false;
                 break;
 
                 case 4:
-                    
+                    ResetParent(Boots);
+                    instantiatedItem = Instantiate(item.prefab, Head.transform);
+                    collider = instantiatedItem.GetComponent<Collider>();
+                    collider.enabled = false;
                 break;
 
                 case 5:
                     Debug.Log("Case 5");
                     ResetParent(RHand);
                     instantiatedItem = Instantiate(item.prefab, RHand.transform);
+                    instantiatedItem.GetComponent<Collider>().enabled = true;
+                    instantiatedItem.GetComponent<Collider>().isTrigger = true;
+
 
                 break;
 
                 case 6:
                     ResetParent(LHand);
                     instantiatedItem = Instantiate(item.prefab, LHand.transform);
+                    instantiatedItem.GetComponent<Collider>().enabled = true;
+                    instantiatedItem.GetComponent<Collider>().isTrigger = true;
                 break;
             }
-            Collider collider = instantiatedItem.GetComponent<Collider>();
-            collider.enabled = false;
+            
             Rigidbody rigidbody = instantiatedItem.GetComponent<Rigidbody>();
             rigidbody.isKinematic = true;
         }

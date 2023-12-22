@@ -18,7 +18,7 @@ MonoBehaviour:
   prefab: {fileID: 1645786095522272344, guid: 2efd1c51d7e487f4ba79e734c950eca8, type: 3}
   icon: {fileID: -998097361, guid: 5fef94a52f1e89341b5729dd9daed719, type: 3}
   type: Weapon
-  rarity: 
+  rarity: Epic
   isEquipped: 0
   numUses: 0
   equippable: 1
@@ -27,6 +27,7 @@ MonoBehaviour:
   moveToHB: 1
   health: 0
   mana: 0
+  expValue: 0
   damage: 30
   block: 10
   bloackable: 1
