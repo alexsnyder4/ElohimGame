@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.Android.LowLevel;
 
 public class PlayerCombat : MonoBehaviour
 {
@@ -16,14 +17,24 @@ public class PlayerCombat : MonoBehaviour
     {
         isInCombat = CheckIfInCombat();
         UpdateLayerWeights();
-    }
 
-    void FixedUpdate()
-    {
+        if(Input.GetKeyDown(KeyCode.Mouse1))
+        {
+            animator.SetBool("Blocking", true);
+        }
+        else if(Input.GetKeyUp(KeyCode.Mouse1))
+        {
+            animator.SetBool("Blocking", false);
+        }
         if(Input.GetKeyDown(KeyCode.Mouse0))//Left Click
         {
             animator.SetTrigger("Attack");
         }
+    }
+
+    void FixedUpdate()
+    {
+        
     }
 
     bool CheckIfInCombat()
