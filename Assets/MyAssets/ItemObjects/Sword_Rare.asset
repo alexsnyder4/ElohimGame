@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c909622c9f27d3248a94682228262e04, type: 3}
   m_Name: Sword_Rare
   m_EditorClassIdentifier: 
-  itemName: ' Medium Sword'
+  itemName: Rare Sword
   description: Forged by an expert blacksmith, this weapon is strong, sturdy, and
     sharp.
   prefab: {fileID: 4334720229974137441, guid: 1bc417e2afe2e834fad5253a6b601f5b, type: 3}
   icon: {fileID: 1356428217, guid: 5fef94a52f1e89341b5729dd9daed719, type: 3}
   type: Weapon
   rarity: Rare
-  isEquipped: 0
+  isEquipped: 1
   numUses: 0
   equippable: 1
   equipSlot: 5
@@ -27,6 +27,7 @@ MonoBehaviour:
   moveToHB: 1
   health: 0
   mana: 0
+  expValue: 0
   damage: 15
   block: 4
   bloackable: 1
