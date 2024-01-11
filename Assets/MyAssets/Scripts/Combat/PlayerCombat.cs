@@ -7,7 +7,7 @@ public class PlayerCombat : MonoBehaviour
 {
     private Animator animator;
     public bool isInCombat = false;
-
+    public GameObject weaponInHand;
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -15,7 +15,9 @@ public class PlayerCombat : MonoBehaviour
 
     void Update()
     {
+        
         isInCombat = CheckIfInCombat();
+
         UpdateLayerWeights();
 
         if(Input.GetKeyDown(KeyCode.Mouse1))
@@ -28,6 +30,7 @@ public class PlayerCombat : MonoBehaviour
         }
         if(Input.GetKeyDown(KeyCode.Mouse0))//Left Click
         {
+            UpdateWeapon();
             animator.SetTrigger("Attack");
         }
     }
@@ -52,4 +55,16 @@ public class PlayerCombat : MonoBehaviour
         animator.SetLayerWeight(1, combatLayerWeight); // Increase influence of combat layer when in combat
     }
 
+    public void StartDealDamage()
+    {
+        weaponInHand.GetComponent<WeaponScript>().StartAttack();
+    }
+    public void EndDealDamage()
+    {
+        weaponInHand.GetComponent<WeaponScript>().EndAttack();
+    }
+    public void UpdateWeapon()
+    {
+        weaponInHand = GetComponent<PlayerInteraction>().rightHand.GetChild(0).gameObject;
+    }
 }

@@ -6052,6 +6052,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isInCombat: 0
+  weaponInHand: {fileID: 0}
 --- !u!1001 &1981541944
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7083,7 +7084,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6134218321300438529, guid: 7a91a605124ed0c4b91cabb7cb92b7a0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 527.45
+      value: 526.005
       objectReference: {fileID: 0}
     - target: {fileID: 6134218321300438529, guid: 7a91a605124ed0c4b91cabb7cb92b7a0, type: 3}
       propertyPath: m_LocalRotation.w
@@ -7103,7 +7104,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6134218321300438529, guid: 7a91a605124ed0c4b91cabb7cb92b7a0, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -1118.11
+      value: -1120.6371
       objectReference: {fileID: 0}
     - target: {fileID: 6134218321300438529, guid: 7a91a605124ed0c4b91cabb7cb92b7a0, type: 3}
       propertyPath: m_AnchoredPosition.y

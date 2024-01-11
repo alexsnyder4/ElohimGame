@@ -54,7 +54,7 @@ public class EnemyHealth : MonoBehaviour
         }
     }
     */
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         Debug.Log("took Damage");
         // Reduce the current health by the damage amount

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5926604151158323603}
   - component: {fileID: -9199456984010825617}
   - component: {fileID: 378435780310487907}
-  - component: {fileID: 4272188603814071156}
+  - component: {fileID: -4667275803363592605}
   m_Layer: 8
   m_Name: Sword_Rare
   m_TagString: Weapon
@@ -130,7 +130,7 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -1685661997809985041, guid: 26317383b8bbd254cb668812e676670b, type: 3}
---- !u!114 &4272188603814071156
+--- !u!114 &-4667275803363592605
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -142,4 +142,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e94c215ea13569e4e86015d88793453b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageAmount: 10
+  enemiesHit: []
+  damageAmount: 0
