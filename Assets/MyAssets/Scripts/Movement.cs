@@ -1,159 +1,157 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
+using UnityEditor;
 using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    public PlayerData playerData;
-    public Transform playerTransform;
+
+    private CharacterController controller;
     private Vector3 moveDirection;
     private Animator anim;
-    public float moveSpeed = 5.0f; // Adjust the movement speed.
-    public float sprintSpeed = 10.0f; //Adjust movement speed
+    public Vector3 velocity;
+    private float gravity = -9.8f;
+    public float moveSpeed; // Adjust the movement speed.
+    public float walkSpeed;
+    public float runSpeed;
     public float rotationSpeed = 3.0f; // Adjust the rotation speed.
     public float jumpForce = 60.0f;
     public float groundRaycastDistance = 0.25f;
+    public bool isGrounded;
 
     public LayerMask groundLayer;
-    private Rigidbody rb;
 
-    private bool isRunning = false;
-    private bool isJumping = false;
-    private bool isWalkingBack = false;
-    private bool runJump = false;
-    private bool backJump = false;
     public bool isStrafing = true;
-    private bool isStrafingR = false;
-    private bool isStrafingL = false;
-    private bool isSprinting = false;
+
 
     void Start()
     {
-        anim = GetComponent<Animator>();
-        rb = GetComponent<Rigidbody>();
+        controller = GetComponent<CharacterController>();
+        anim = GetComponentInChildren<Animator>();
         Cursor.lockState = CursorLockMode.Locked; // Locks the cursor to the game window.
     }
 
     void Update()
     {
-    
-    // Player Rotation
-    float horizontalInput = Input.GetAxis("Horizontal");
-
-    if (!Input.GetMouseButtonDown(1))
-    {
-        isStrafing = false;
-        // Apply rotation only if Shift key is not held down
-        Vector3 rotation = new Vector3(0, horizontalInput * rotationSpeed, 0);
-        playerTransform.Rotate(rotation);
-    }
-    if(Input.GetMouseButton(1))
-    {
-        isStrafing = true;
-    }
-        //Player Horizontal Movement
-        //Sprint/Walk logic
-        if(!Input.GetKey(KeyCode.LeftShift))
-        {
-            //walk
-            isSprinting = false;
-            moveDirection = playerTransform.right * horizontalInput * moveSpeed * Time.deltaTime;
-            playerTransform.Translate(moveDirection, Space.World);
-        }
+        Move();
         
+    }
+
+    private void Move()
+    {
+        isGrounded = Physics.Raycast(transform.position, Vector3.down, groundRaycastDistance, groundLayer);
+        if(isGrounded && velocity.y < 0)
+        {
+            velocity.y = -2f;
+        }
+        float moveZ = Input.GetAxis("Vertical");
+
+        moveDirection = new Vector3(0,0, moveZ);
+        moveDirection = transform.TransformDirection(moveDirection);
+
+        if(isGrounded)
+        {
+            if(moveDirection != Vector3.zero && !Input.GetKey(KeyCode.LeftShift))
+            {
+                Walk();
+            }
+            else if(moveDirection != Vector3.zero && Input.GetKey(KeyCode.LeftShift))
+            {
+                Run();
+            }
+            else if(moveDirection == Vector3.zero)
+            {
+                Idle();
+            }
+
+            moveDirection *= moveSpeed;
+
+            if(Input.GetKeyDown(KeyCode.Space))
+            {
+                Jump();
+            }
+        }
+
+        controller.Move(moveDirection * Time.deltaTime);
+
+        velocity.y += gravity * Time.deltaTime;
+        controller.Move(velocity * Time.deltaTime);
+
+    }
+    void Idle()
+    {
+        anim.SetFloat("Speed", .5f, 0.1f, Time.deltaTime);
+    }
+    void Walk()
+    {
+        moveSpeed = walkSpeed;
+        anim.SetFloat("Speed", 1f, 0.1f, Time.deltaTime);
+
+    }
+    void Run()
+    {
+        moveSpeed = runSpeed;
+        anim.SetFloat("Speed", 1.5f, 0.1f, Time.deltaTime);
+    }
+    void Jump()
+    {
+        anim.SetTrigger("Jump");
+        velocity.y = Mathf.Sqrt(jumpForce * -2 * gravity);
+    }
+}
+
+/*
+// Player Rotation
+        horizontalInput = Input.GetAxis("Horizontal");
+        verticalInput = Input.GetAxis("Vertical");
+
+        // If Blocking, player strafes
+        if(Input.GetMouseButton(1) && horizontalInput > 0.01)
+        {
+            isStrafing = true;
+        }
         else
         {
-            //Sprint
-            isSprinting = true;
-            moveDirection = playerTransform.right * horizontalInput * sprintSpeed * Time.deltaTime;
-            playerTransform.Translate(moveDirection, Space.World);
+            isStrafing = false;
+            // Apply rotation only if Shift key is not held down
+            Vector3 rotation = new Vector3(0, horizontalInput * rotationSpeed, 0);
+            playerTransform.Rotate(rotation);
         }
+        
 
-        float verticalInput = Input.GetAxis("Vertical");
+        // Sprint/Walk logic
+
+        // Player Horizontal Movement
+        float horizontalSpeed = Input.GetKey(KeyCode.LeftShift) ? sprintSpeed : moveSpeed;
+        float horizontalInputValue = Input.GetAxis("Horizontal");
+        moveDirection = playerTransform.right * horizontalInputValue * horizontalSpeed * Time.deltaTime;
+        playerTransform.Translate(moveDirection, Space.World);
 
         // Player Vertical Movement
-        if (!Input.GetKey(KeyCode.LeftShift))
-        {
-            isSprinting = false;
-            moveDirection = playerTransform.forward * verticalInput * moveSpeed * Time.deltaTime;
-            playerTransform.Translate(moveDirection, Space.World);
-        }
+        float verticalSpeed = Input.GetKey(KeyCode.LeftShift) ? sprintSpeed : moveSpeed;
+        float verticalInputValue = Input.GetAxis("Vertical");
+        moveDirection = playerTransform.forward * verticalInputValue * verticalSpeed * Time.deltaTime;
+        playerTransform.Translate(moveDirection, Space.World);
 
+        // Set speed to 0 if no input
+        if (Mathf.Approximately(horizontalInputValue, 0f) && Mathf.Approximately(verticalInputValue, 0f))
+        {
+            anim.SetFloat("Speed", 0f);
+        }
         else
         {
-
-            //sprint
-            isSprinting = true;
-            moveDirection = playerTransform.forward * verticalInput * sprintSpeed * Time.deltaTime;
-            playerTransform.Translate(moveDirection, Space.World);
+            // Set animation speed based on movement
+            anim.SetFloat("Speed", Input.GetKey(KeyCode.LeftShift) ? 1.5f : 1f);
         }
-    
-    
-    // Reset all movement-related animation parameters
-    isRunning = false;
-    isWalkingBack = false;
-    //sending current position to player data scriptable object
-    playerData.currPosition = playerTransform.position;
-    if (verticalInput > 0) // forward
-    {
-        isRunning = true;
-        runJump = Input.GetKeyDown(KeyCode.Space) && IsGrounded();
-    }
-    else if (verticalInput < 0)
-    {
-        isWalkingBack = true;
-        isJumping = Input.GetKeyDown(KeyCode.Space) && IsGrounded();
-    }
         
-    else
-    {
-        isJumping = Input.GetKeyDown(KeyCode.Space) && IsGrounded();
-    }
-    if(horizontalInput > 0 && isStrafing == true)
-    {
-        isStrafingL = true;
-    }
-    else if(horizontalInput < 0 && isStrafing == true)
-    {
-        isStrafingR = true;
-    }
-    else
-    {
-        isStrafingL = false;
-        isStrafingR = false;
-    }
-
-    // Update the animator parameters
-    anim.SetBool("isRunning", isRunning);
-    anim.SetBool("isWalkingBack", isWalkingBack);
-    anim.SetBool("runJump", runJump);
-    anim.SetBool("Jump", isJumping);
-    anim.SetBool("isStrafingL", isStrafingL);
-    anim.SetBool("isStrafingR", isStrafingR);
-        anim.SetBool("isSprinting", isSprinting);
-    isStrafing = true;
-
-    if (Input.GetKeyDown(KeyCode.Space) && IsGrounded())
-    {
-        jump();
-    }
-}
-
-    void jump()
-    {
-        rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-    }
-
-    bool IsGrounded()
-    {
-        // Perform a downward raycast from the player's position
-        return Physics.Raycast(transform.position, Vector3.down, groundRaycastDistance, groundLayer);
-    }
-
-    
-}
-
-
+        
+        
+        if (Input.GetKeyDown(KeyCode.Space) && IsGrounded())
+        {
+            Jump();
+        }
+        */
 
 
 

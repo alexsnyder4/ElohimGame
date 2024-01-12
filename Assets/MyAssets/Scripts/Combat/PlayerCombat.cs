@@ -16,17 +16,17 @@ public class PlayerCombat : MonoBehaviour
     void Update()
     {
         
-        isInCombat = CheckIfInCombat();
+        CheckIfInCombat();
 
         UpdateLayerWeights();
 
         if(Input.GetKeyDown(KeyCode.Mouse1))
         {
-            animator.SetBool("Blocking", true);
+            animator.SetTrigger("Blocking");
         }
         else if(Input.GetKeyUp(KeyCode.Mouse1))
         {
-            animator.SetBool("Blocking", false);
+            animator.SetTrigger("Blocking");
         }
         if(Input.GetKeyDown(KeyCode.Mouse0))//Left Click
         {
@@ -42,7 +42,11 @@ public class PlayerCombat : MonoBehaviour
 
     bool CheckIfInCombat()
     {
-        return true;
+        if(Input.GetKey(KeyCode.L))
+        {
+            isInCombat = !isInCombat;
+        }
+        return isInCombat;
     }
 
     void UpdateLayerWeights()
@@ -65,6 +69,6 @@ public class PlayerCombat : MonoBehaviour
     }
     public void UpdateWeapon()
     {
-        weaponInHand = GetComponent<PlayerInteraction>().rightHand.GetChild(0).gameObject;
+        weaponInHand = GetComponentInParent<PlayerInteraction>().rightHand.GetChild(0).gameObject;
     }
 }
