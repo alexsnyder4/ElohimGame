@@ -35,24 +35,7 @@ public class EnemyHealth : MonoBehaviour
         ui.UpdateHealthBar(currentHealth,maxHealth);
     }
     /*
-    private void Update()
-    {
-        if(target)
-        {
-            Vector3 direction = (target.position - transform.position).normalized;
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            rb.rotation = angle;
-            moveDirection = direction;
-        }
-    }
-
-    private void FixedUpdate()
-    {
-        if(target)
-        {
-            rb.velocity = new Vector2(moveDirection.x, moveDirection.y) * moveSpeed;
-        }
-    }
+    
     */
     public void TakeDamage(float damage)
     {
