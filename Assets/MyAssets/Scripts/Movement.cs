@@ -47,7 +47,8 @@ public class Movement : MonoBehaviour
         }
         float moveZ = Input.GetAxis("Vertical");
 
-        moveDirection = new Vector3(0,0, moveZ);
+        float moveX = Input.GetAxis("Horizontal");
+        moveDirection = new Vector3(moveX, 0, moveZ);
         moveDirection = transform.TransformDirection(moveDirection);
 
         if(isGrounded)
@@ -74,7 +75,7 @@ public class Movement : MonoBehaviour
         }
 
         controller.Move(moveDirection * Time.deltaTime);
-
+        
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
 
@@ -99,6 +100,7 @@ public class Movement : MonoBehaviour
         anim.SetTrigger("Jump");
         velocity.y = Mathf.Sqrt(jumpForce * -2 * gravity);
     }
+    
 }
 
 /*

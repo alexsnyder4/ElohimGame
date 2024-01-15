@@ -99,7 +99,7 @@ public class CameraMovement : MonoBehaviour
         cameraTransform.position = targetPosition;
     }
 
-    void RotatePlayerWithMouse()
+   void RotatePlayerWithMouse()
 {
     mouseX += Input.GetAxis("Mouse X") * rotationSpeed;
     RaycastHit hit;
@@ -128,7 +128,7 @@ public class CameraMovement : MonoBehaviour
     player.rotation = currPlayerRotation;
 
     // Rotate both the camera and the player
-    player.rotation = Quaternion.Euler(0, mouseX, 0);
+    //player.rotation = Quaternion.Euler(0, mouseX, 0);
     cameraTransform.LookAt(playerHead);
 }
     
