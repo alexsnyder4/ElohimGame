@@ -10,10 +10,11 @@ public class EnemyMovement : MonoBehaviour
     public NavMeshAgent agent;
     public ItemController controller;
     public Transform player;
-
+    public EnemyUI ui;
+    public float maxHealth;
+    public float currentHealth;
     public LayerMask whatIsGround, whatIsPlayer;
 
-    public float health;
 
     //Patroling
     public Vector3 walkPoint;
@@ -36,10 +37,16 @@ public class EnemyMovement : MonoBehaviour
         animator = GetComponent<Animator>();
         controller = GetComponent<ItemController>();
     }
+    private void Start()
+    {
+        controller.items.ResetHp();
+        maxHealth = controller.items.maxHealth;
+        currentHealth = controller.items.maxHealth;
+        ui.UpdateHealthBar(currentHealth,maxHealth);
+    }
 
     private void Update()
     {
-        health = controller.items.health;
         //Check for sight and attack range
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
@@ -100,9 +107,7 @@ public class EnemyMovement : MonoBehaviour
         if (!alreadyAttacked)
         {
             ///Attack code here
-            Rigidbody rb = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
-            rb.AddForce(transform.forward * 32f, ForceMode.Impulse);
-            rb.AddForce(transform.up * 8f, ForceMode.Impulse);
+            
             ///End of attack code
 
             alreadyAttacked = true;
@@ -118,7 +123,8 @@ public class EnemyMovement : MonoBehaviour
     public void TakeDamage(float damage)
     {
         controller.items.health -= damage;
-
+        currentHealth = controller.items.health;
+        ui.UpdateHealthBar(currentHealth,maxHealth);
         if (controller.items.health <= 0)
         {
             animator.SetTrigger("Die");
@@ -136,6 +142,14 @@ public class EnemyMovement : MonoBehaviour
     public void Die()
     {
         Destroy(gameObject);
+    }
+    public void StartDealDamage()
+    {
+        GetComponentInChildren<WeaponScript>().StartAttack();
+    }
+    public void EndDealDamage()
+    {
+        GetComponentInChildren<WeaponScript>().EndAttack();
     }
 }
 

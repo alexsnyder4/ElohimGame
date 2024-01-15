@@ -8,9 +8,13 @@ public class PlayerCombat : MonoBehaviour
     private Animator animator;
     public bool isInCombat = false;
     public GameObject weaponInHand;
+    public PlayerData pd;
+    public PlayerUI ui;
+    public bool blocking;
     void Start()
     {
         animator = GetComponent<Animator>();
+        blocking = false;
     }
 
     void Update()
@@ -23,10 +27,12 @@ public class PlayerCombat : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Mouse1))
         {
             animator.SetTrigger("Blocking");
+            blocking = true;
         }
         else if(Input.GetKeyUp(KeyCode.Mouse1))
         {
             animator.SetTrigger("Blocking");
+            blocking = false;
         }
         if(Input.GetKeyDown(KeyCode.Mouse0))//Left Click
         {
@@ -70,5 +76,21 @@ public class PlayerCombat : MonoBehaviour
     public void UpdateWeapon()
     {
         weaponInHand = GetComponentInParent<PlayerInteraction>().rightHand.GetChild(0).gameObject;
+    }
+    public void TakeDamage(float damage)
+    {
+        if(blocking == true)
+        {
+            damage *= .5f;
+        }
+        pd.health -= damage;
+
+        ui.UpdateHealthBar(pd.health,pd.maxHealth);
+        if (pd.health <= 0)
+        {
+            //animator.SetTrigger("Die");
+            Debug.Log("Player is ded");
+
+        }
     }
 }

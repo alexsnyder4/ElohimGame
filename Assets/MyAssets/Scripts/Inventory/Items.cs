@@ -25,6 +25,8 @@ public class Items : ScriptableObject
     public bool useable;
     public bool moveToHB;
 
+    public float maxHealth;
+    public float maxMana;
     public float health;
     public float mana;
 
@@ -77,6 +79,12 @@ public class Items : ScriptableObject
         {
             return null;
         }
+    }
+
+    public void ResetHp()
+    {
+        health = maxHealth;
+        mana = maxMana;
     }
 
 

@@ -24,7 +24,21 @@ public class WeaponScript : MonoBehaviour
             // Check if the object collided with is an enemy
             if (other.CompareTag("Enemy"))
             {
-                // Check if target was not hit yet
+                //Ensure attacking person is not an enemy
+                if(!transform.root.gameObject.CompareTag("Enemy"))
+                {
+                    // Check if target was not hit yet
+                    if (!enemiesHit.Contains(other.gameObject))
+                    {
+                        enemiesHit.Add(other.gameObject);
+                        // Deal damage to the enemy
+                        DealDamage(other.gameObject);
+                    }
+                }
+                
+            }
+            else if(other.CompareTag("Player"))
+            {
                 if (!enemiesHit.Contains(other.gameObject))
                 {
                     enemiesHit.Add(other.gameObject);
@@ -37,15 +51,28 @@ public class WeaponScript : MonoBehaviour
 
     private void DealDamage(GameObject enemy)
     {
-        // Get the enemy's health component (you need to have a health component on your enemy)
-        EnemyMovement enemyHealth = enemy.GetComponent<EnemyMovement>();
-
-        if (enemyHealth != null)
+        if(enemy.tag == "Enemy")
         {
-            // Deal damage to the enemy
-            enemyHealth.TakeDamage(weapon.damage);
-            Debug.Log(weapon.name + " : " + weapon.damage);
+            EnemyMovement enemyHealth = enemy.GetComponent<EnemyMovement>();
+            if (enemyHealth != null)
+            {
+                // Deal damage to the enemy
+                enemyHealth.TakeDamage(weapon.damage);
+                Debug.Log(weapon.name + " : " + weapon.damage);
+            }
         }
+        else if(enemy.tag == "Player")
+        {
+            PlayerCombat playerCombat = enemy.GetComponentInChildren<PlayerCombat>();
+            if (playerCombat != null)
+            {
+                // Deal damage to the enemy
+                playerCombat.TakeDamage(weapon.damage);
+                Debug.Log(weapon.name + " : " + weapon.damage);
+            }
+        }
+        // Get the enemy's health component (you need to have a health component on your enemy)
+
     }
 
     public void StartAttack()

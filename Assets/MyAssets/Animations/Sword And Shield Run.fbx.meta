@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 637a5549449b7b84eaa870f36480ccb3
+guid: d76e8d60ebd763646ba7d56fad6ce821
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -33,11 +33,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: playerRun
+      name: playerCombatRun
       takeName: mixamo.com
       internalID: -203655887218126122
-      firstFrame: 1.8
-      lastFrame: 21
+      firstFrame: 0
+      lastFrame: 18
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -54,7 +54,7 @@ ModelImporter:
       keepOriginalPositionXZ: 1
       heightFromFeet: 0
       mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000000000000000000000000000000000000
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events: []
       transformMask: []

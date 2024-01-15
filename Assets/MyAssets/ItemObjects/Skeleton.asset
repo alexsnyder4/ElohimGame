@@ -24,6 +24,8 @@ MonoBehaviour:
   equipSlot: 0
   useable: 0
   moveToHB: 0
+  maxHealth: 20
+  maxMana: 0
   health: 20
   mana: 0
   expValue: 5

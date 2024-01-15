@@ -2279,7 +2279,6 @@ GameObject:
   - component: {fileID: 7321056044700847243}
   - component: {fileID: 3835502214082491704}
   - component: {fileID: 6017334604763636478}
-  - component: {fileID: 8408727481762636216}
   - component: {fileID: 1630659118}
   - component: {fileID: 1630659116}
   - component: {fileID: 1630659117}
@@ -2383,24 +2382,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!114 &8408727481762636216
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6569856470529001775}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d945a778e090714abbaa9873470e434, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 0
-  currentHealth: 0
-  itemsComponent: {fileID: 11400000, guid: 0917467a49e700e4ca0007d5b443c2b3, type: 2}
-  ic: {fileID: 3835502214082491704}
-  ui: {fileID: 1823554952}
-  moveSpeed: 5
 --- !u!54 &1630659118
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2413,9 +2394,9 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &1630659116
 MonoBehaviour:
@@ -2433,19 +2414,21 @@ MonoBehaviour:
   agent: {fileID: 1630659117}
   controller: {fileID: 0}
   player: {fileID: 0}
+  ui: {fileID: 1823554952}
+  maxHealth: 0
+  currentHealth: 0
   whatIsGround:
     serializedVersion: 2
     m_Bits: 64
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 2048
-  health: 0
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointRange: 0
   timeBetweenAttacks: 2
   projectile: {fileID: 0}
   sightRange: 10
-  attackRange: 2
+  attackRange: 1.5
   playerInSightRange: 0
   playerInAttackRange: 0
 --- !u!195 &1630659117

@@ -11,7 +11,9 @@ public class PlayerUI : MonoBehaviour
     
     public PlayerData pd;
     public TMP_Text hp;
+    public Image hpBar;
     public TMP_Text mana;
+    public Image manaBar;
     public GameObject charPanel;
     public GameObject inventory;
     public bool invActive = false;
@@ -24,14 +26,15 @@ public class PlayerUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        hp.text = pd.health + "/" + pd.maxHealth;
+        mana.text = pd.mana + "/" + pd.maxMana;
+        hpBar.fillAmount = pd.health/pd.maxHealth;
     }
 
     // Update is called once per frame
     void Update()
     {
-        hp.text = pd.health + "/" + pd.maxHealth;
-        mana.text = pd.mana + "/" + pd.maxMana;
+        
         if(Input.GetKeyDown(KeyCode.Tab))
         {
             inventoryBtn.onClick.Invoke();
@@ -50,5 +53,11 @@ public class PlayerUI : MonoBehaviour
     {
         charPanel.SetActive(!charActive);
         charActive = !charActive;
+    }
+    public void UpdateHealthBar(float currentHp, float maxHp)
+    {
+        hp.text = currentHp + "/" + maxHp;
+        mana.text = pd.mana + "/" + pd.maxMana;
+        hpBar.fillAmount = currentHp/maxHp;
     }
 }
