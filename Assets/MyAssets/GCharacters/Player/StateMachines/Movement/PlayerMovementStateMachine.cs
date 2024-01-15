@@ -4,18 +4,20 @@ using UnityEngine;
 
 public class PlayerMovementStateMachine : StateMachine
 {
+    public GPlayer Player { get; }
     public PlayerIdlingState IdlingState { get; }
     public PlayerWalkingState WalkingState { get; }
     public PlayerRunningState RunningState { get; }
     public PlayerSprintingState SprintingState { get; }
 
 
-    public PlayerMovementStateMachine()
+    public PlayerMovementStateMachine(GPlayer gPlayer)
     {
-        IdlingState = new PlayerIdlingState();
+        Player = gPlayer;
+        IdlingState = new PlayerIdlingState(this);
 
-        WalkingState = new PlayerWalkingState();
-        RunningState = new PlayerRunningState();
-        SprintingState = new PlayerSprintingState();
+        WalkingState = new PlayerWalkingState(this);
+        RunningState = new PlayerRunningState(this);
+        SprintingState = new PlayerSprintingState(this);
     }
 }

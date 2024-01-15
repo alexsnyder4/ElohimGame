@@ -843,6 +843,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b686cf65ee1251e41bd125fce75a4561, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &445675624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 445675616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b73f212e380aca545a175f21d2f095f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &477506831
 GameObject:
   m_ObjectHideFlags: 0
@@ -7185,6 +7197,22 @@ PrefabInstance:
       propertyPath: m_IsKinematic
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6368058487399367649, guid: 9bba9e5d5d47c65408a8a17f2778ded1, type: 3}
+      propertyPath: m_Interpolate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6368058487399367649, guid: 9bba9e5d5d47c65408a8a17f2778ded1, type: 3}
+      propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6368058487399367649, guid: 9bba9e5d5d47c65408a8a17f2778ded1, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6368058487399367650, guid: 9bba9e5d5d47c65408a8a17f2778ded1, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6368058487399367656, guid: 9bba9e5d5d47c65408a8a17f2778ded1, type: 3}
       propertyPath: m_Name
       value: Character
@@ -7199,7 +7227,7 @@ PrefabInstance:
       objectReference: {fileID: 477506832}
     - target: {fileID: 6368058487399367661, guid: 9bba9e5d5d47c65408a8a17f2778ded1, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6368058487399367663, guid: 9bba9e5d5d47c65408a8a17f2778ded1, type: 3}
       propertyPath: m_RootOrder
