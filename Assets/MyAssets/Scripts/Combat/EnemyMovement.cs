@@ -5,8 +5,10 @@ using UnityEngine.AI;
 
 public class EnemyMovement : MonoBehaviour
 {
-    public NavMeshAgent agent;
 
+    public Animator animator;
+    public NavMeshAgent agent;
+    public ItemController controller;
     public Transform player;
 
     public LayerMask whatIsGround, whatIsPlayer;
@@ -31,10 +33,13 @@ public class EnemyMovement : MonoBehaviour
     {
         player = GameObject.Find("Player").transform;
         agent = GetComponent<NavMeshAgent>();
+        animator = GetComponent<Animator>();
+        controller = GetComponent<ItemController>();
     }
 
     private void Update()
     {
+        health = controller.items.health;
         //Check for sight and attack range
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
@@ -46,6 +51,7 @@ public class EnemyMovement : MonoBehaviour
 
     private void Patroling()
     {
+        
         if (!walkPointSet) SearchWalkPoint();
 
         if (walkPointSet)
@@ -55,10 +61,14 @@ public class EnemyMovement : MonoBehaviour
 
         //Walkpoint reached
         if (distanceToWalkPoint.magnitude < 1f)
+        {
             walkPointSet = false;
+            animator.SetFloat("Speed", 0f, .1f, Time.deltaTime);
+        }
     }
     private void SearchWalkPoint()
     {
+        
         //Calculate random point in range
         float randomZ = Random.Range(-walkPointRange, walkPointRange);
         float randomX = Random.Range(-walkPointRange, walkPointRange);
@@ -66,12 +76,16 @@ public class EnemyMovement : MonoBehaviour
         walkPoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
 
         if (Physics.Raycast(walkPoint, -transform.up, 2f, whatIsGround))
+        {
             walkPointSet = true;
+            animator.SetFloat("Speed", .5f, .1f, Time.deltaTime);
+        }
     }
 
     private void ChasePlayer()
     {
         agent.SetDestination(player.position);
+        animator.SetFloat("Speed", 1f, .1f, Time.deltaTime);
     }
 
     private void AttackPlayer()
@@ -80,6 +94,8 @@ public class EnemyMovement : MonoBehaviour
         agent.SetDestination(transform.position);
 
         transform.LookAt(player);
+
+        animator.SetTrigger("Attack");
 
         if (!alreadyAttacked)
         {
@@ -95,18 +111,19 @@ public class EnemyMovement : MonoBehaviour
     }
     private void ResetAttack()
     {
+        animator.ResetTrigger("Attack");
         alreadyAttacked = false;
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
-        health -= damage;
+        controller.items.health -= damage;
 
-        if (health <= 0) Invoke(nameof(DestroyEnemy), 0.5f);
-    }
-    private void DestroyEnemy()
-    {
-        Destroy(gameObject);
+        if (controller.items.health <= 0)
+        {
+            animator.SetTrigger("Die");
+
+        }
     }
 
     private void OnDrawGizmosSelected()
@@ -116,53 +133,9 @@ public class EnemyMovement : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, sightRange);
     }
-
-    /*
-    public float detectionRange = 10f;
-    public LayerMask playerLayer;
-    public float moveSpeed = 1f;
-    public Transform player;
-    // Start is called before the first frame update
-    void Start()
+    public void Die()
     {
-        player = GameObject.FindGameObjectWithTag("Player")?.transform;
-
-        if (player == null)
-        {
-            Debug.LogError("Player not found. Make sure the player is tagged as 'Player'.");
-        }
+        Destroy(gameObject);
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        DetectPlayer();
-    }
-
-    void DetectPlayer()
-    {
-        // Create a ray from the enemy's position forward
-        Ray ray = new Ray(transform.position, transform.forward);
-        
-        // Check if the ray hits something within the detection range
-        if (Physics.Raycast(ray, out RaycastHit hit, detectionRange, playerLayer))
-        {
-            if (hit.collider.CompareTag("Player"))
-            {
-                Debug.Log("Player detected!");
-                MoveTowardsPlayer();
-                // Add your enemy behavior here (e.g., attacking the player)
-            }
-        }
-    }
-    void MoveTowardsPlayer()
-    {
-        // Calculate the direction from the enemy to the player
-        Vector3 direction = (player.position - transform.position).normalized;
-
-        // Move the enemy towards the player
-        transform.Translate(direction * moveSpeed * Time.deltaTime);
-    }
-    */
 }
 

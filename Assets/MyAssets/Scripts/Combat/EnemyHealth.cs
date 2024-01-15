@@ -37,23 +37,7 @@ public class EnemyHealth : MonoBehaviour
     /*
     
     */
-    public void TakeDamage(float damage)
-    {
-        Debug.Log("took Damage");
-        // Reduce the current health by the damage amount
-        currentHealth -= damage;
-        ui.UpdateHealthBar(currentHealth, maxHealth);
-        // Check if the enemy is dead
-        if (currentHealth <= 0)
-        {
-            Die();
-        }
-    }
+    
 
-    private void Die()
-    {
-        // Perform death-related logic (e.g., play death animation, remove the enemy from the scene)
-        Destroy(gameObject);
-    }
 }
 
