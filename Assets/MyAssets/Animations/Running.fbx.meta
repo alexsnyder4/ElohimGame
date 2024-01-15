@@ -36,7 +36,7 @@ ModelImporter:
       name: playerRun
       takeName: mixamo.com
       internalID: -203655887218126122
-      firstFrame: 0
+      firstFrame: 1.8
       lastFrame: 21
       wrapMode: 0
       orientationOffsetY: 0
@@ -54,7 +54,7 @@ ModelImporter:
       keepOriginalPositionXZ: 1
       heightFromFeet: 0
       mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000000000000000000000000000000000000
       curves: []
       events: []
       transformMask: []

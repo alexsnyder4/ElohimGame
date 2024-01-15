@@ -38,7 +38,7 @@ public class WeaponScript : MonoBehaviour
     private void DealDamage(GameObject enemy)
     {
         // Get the enemy's health component (you need to have a health component on your enemy)
-        EnemyHealth enemyHealth = enemy.GetComponent<EnemyHealth>();
+        EnemyMovement enemyHealth = enemy.GetComponent<EnemyMovement>();
 
         if (enemyHealth != null)
         {
