@@ -670,8 +670,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 656108d8015af424c9359bf591bd35da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isInCombat: 0
   weaponInHand: {fileID: 0}
+  weaponStowed: 0
   pd: {fileID: 11400000, guid: 0772883b1a92c8b43ae69c515764df10, type: 2}
   ui: {fileID: 0}
   blocking: 0
