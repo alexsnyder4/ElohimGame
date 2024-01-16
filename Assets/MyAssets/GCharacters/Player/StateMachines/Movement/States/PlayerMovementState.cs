@@ -61,6 +61,20 @@ public class PlayerMovementState : IState
     {
         
     }
+    public virtual void OnAnimationEnterEvent()
+    {
+
+    }
+
+    public virtual void OnAnimationExitEvent()
+    {
+
+    }
+
+    public virtual void OnAnimationTransitionEvent()
+    {
+        
+    }
 
     #region Main Methods
     private void ReadMovementinput()
@@ -225,5 +239,7 @@ public class PlayerMovementState : IState
     {
         stateMachine.ReusableData.ShouldWalk = !stateMachine.ReusableData.ShouldWalk;
     }
+
+    
     #endregion
 }
