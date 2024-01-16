@@ -50,6 +50,7 @@ public class PlayerMovementState : IState
     public virtual void PhysicsUpdate()
     {
         Move();
+        RotateTowardsTargetRotation();
     }
 
     
@@ -63,6 +64,8 @@ public class PlayerMovementState : IState
     private void ReadMovementinput()
     {
         movementInput = stateMachine.Player.Input.PlayerActions.Movement.ReadValue<Vector2>();
+
+        
     }
     private void Move()
     {
@@ -105,19 +108,22 @@ public class PlayerMovementState : IState
 
     private float AddCameraRotationToAngle(float angle)
     {
-        angle += stateMachine.Player.MainCameraTransform.eulerAngles.y;
+        float cameraRotation = stateMachine.Player.MainCameraTransform.eulerAngles.y;
+        angle += cameraRotation;
 
         if (angle > 360f)
         {
             angle -= 360f;
         }
 
+        
+
         return angle;
     }
 
     private static float GetDirectionAngle(Vector3 direction)
     {
-        float directionAngle = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg;
+        float directionAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
 
         if (directionAngle < 0f)
         {
@@ -152,6 +158,8 @@ public class PlayerMovementState : IState
     {
         float currentYAngle = stateMachine.Player.rb.rotation.eulerAngles.y;
 
+       
+
         if (currentYAngle == currentTargetRotation.y) {
             return;
         }
@@ -170,11 +178,9 @@ public class PlayerMovementState : IState
         float directionAngle = GetDirectionAngle(direction);
         directionAngle = AddCameraRotationToAngle(directionAngle);
 
+        
 
-        if(shouldConsiderCameraRotation)
-        {
-            directionAngle = AddCameraRotationToAngle(directionAngle);
-        }
+
         if (directionAngle != currentTargetRotation.y)
         {
             UpdateTargetRotationData(directionAngle);
