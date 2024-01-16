@@ -6,6 +6,7 @@ using UnityEngine;
 public class GPlayer : MonoBehaviour
 {
 
+    public Transform MainCameraTransform {  get; private set; }
     public Rigidbody rb {  get; private set; }
 
     public PlayerInput Input { get; private set; }
@@ -16,6 +17,7 @@ public class GPlayer : MonoBehaviour
     {
         movementStateMachine = new PlayerMovementStateMachine(this);
         Input = GetComponent<PlayerInput>();
+        MainCameraTransform = Camera.main.transform;
         rb = GetComponent<Rigidbody>();
     }
 
