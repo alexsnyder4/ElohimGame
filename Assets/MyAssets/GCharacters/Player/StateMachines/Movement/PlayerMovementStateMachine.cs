@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlayerMovementStateMachine : StateMachine
 {
     public GPlayer Player { get; }
+
+    public PlayerStateReusableData ReusableData { get; }
     public PlayerIdlingState IdlingState { get; }
     public PlayerWalkingState WalkingState { get; }
     public PlayerRunningState RunningState { get; }
@@ -14,6 +16,8 @@ public class PlayerMovementStateMachine : StateMachine
     public PlayerMovementStateMachine(GPlayer gPlayer)
     {
         Player = gPlayer;
+        ReusableData = new PlayerStateReusableData();
+
         IdlingState = new PlayerIdlingState(this);
 
         WalkingState = new PlayerWalkingState(this);

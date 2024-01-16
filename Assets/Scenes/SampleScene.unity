@@ -994,6 +994,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b686cf65ee1251e41bd125fce75a4561, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Data>k__BackingField: {fileID: 11400000, guid: cb52fbe1c7955fa46b9d93beedd4da9f, type: 2}
 --- !u!114 &445675624
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7603,6 +7604,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6368058487399367650, guid: 9bba9e5d5d47c65408a8a17f2778ded1, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 13400000, guid: 3a35855e29c1ca7489cf7695f9ba7dad, type: 2}
     - target: {fileID: 6368058487399367656, guid: 9bba9e5d5d47c65408a8a17f2778ded1, type: 3}
       propertyPath: m_Name
       value: Character

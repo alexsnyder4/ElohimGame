@@ -5,7 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerInput))]
 public class GPlayer : MonoBehaviour
 {
-
+    [field: Header("References")]
+   [field: SerializeField] public PlayerSO Data { get; private set; }
     public Transform MainCameraTransform {  get; private set; }
     public Rigidbody rb {  get; private set; }
 
