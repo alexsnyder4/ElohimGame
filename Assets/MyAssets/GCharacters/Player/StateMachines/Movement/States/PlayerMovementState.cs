@@ -23,8 +23,10 @@ public class PlayerMovementState : IState
 
     private void InitializeData()
     {
-        stateMachine.ReusableData.TimeToReachTargetRotation = movementData.BaseRotationData.TargetRotationReachTime;
+        SetBaseRotationData();
     }
+
+    
 
     public virtual void Enter()
     {
@@ -153,6 +155,13 @@ public class PlayerMovementState : IState
     #endregion
 
     #region Reusable Methods
+
+    protected void SetBaseRotationData()
+    {
+        stateMachine.ReusableData.RotationData = movementData.BaseRotationData;
+
+        stateMachine.ReusableData.TimeToReachTargetRotation = stateMachine.ReusableData.RotationData.TargetRotationReachTime;
+    }
     protected Vector3 GetMovementInputDirection()
     {
         return new Vector3(stateMachine.ReusableData.MovementInput.x, 0f, stateMachine.ReusableData.MovementInput.y);
@@ -230,6 +239,22 @@ public class PlayerMovementState : IState
     protected virtual void RemoveInputActionsCallBacks()
     {
         stateMachine.Player.Input.PlayerActions.WalkToggle.started -= OnWalkToggleStarted;
+    }
+
+    protected void DecelerateHorizontally()
+    {
+        Vector3 playerHorizontalVelocity = GetPlayerHorizontalVelocity();
+
+        stateMachine.Player.rb.AddForce(-playerHorizontalVelocity*stateMachine.ReusableData.MovementDecelerationForce, ForceMode.Acceleration);
+    }
+
+    protected bool IsMovingHorizontally(float minimumMagnitude = .1f)
+    {
+        Vector3 playerHorizontalVelocity = GetPlayerHorizontalVelocity();
+
+        Vector2 playerHorizontalMovement = new Vector2(playerHorizontalVelocity.x, playerHorizontalVelocity.z);
+
+        return playerHorizontalMovement.magnitude > minimumMagnitude;
     }
     #endregion
 
