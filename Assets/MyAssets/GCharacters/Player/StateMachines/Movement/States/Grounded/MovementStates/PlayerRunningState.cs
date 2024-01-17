@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,8 +6,13 @@ using UnityEngine.InputSystem;
 
 public class PlayerRunningState : PlayerMovingState
 {
+
+    private float startTime;
+
+    private PlayerSprintData sprintData;
     public PlayerRunningState(PlayerMovementStateMachine playerMovementStateMachine) : base(playerMovementStateMachine)
     {
+        sprintData = movementData.SprintData;
     }
 
     #region IState Methods
@@ -16,9 +22,40 @@ public class PlayerRunningState : PlayerMovingState
 
         stateMachine.ReusableData.MovementSpeedModifier = movementData.RunData.SpeedModifier;
 
+        startTime = Time.time;
     }
+
+    public override void Update()
+    {
+        base.Update();
+
+        if(!stateMachine.ReusableData.ShouldWalk)
+        {
+            return;
+        }
+
+        if(Time.time< startTime+ sprintData.RunToWalkTime)
+        {
+            return;
+        }
+        StopRunning();
+    }
+
+
     #endregion
 
+    #region Main Methods
+    private void StopRunning()
+    {
+        if(stateMachine.ReusableData.MovementInput == Vector2.zero )
+        {
+            stateMachine.ChangeState(stateMachine.IdlingState); return;
+        }
+
+        stateMachine.ChangeState(stateMachine.WalkingState);
+    }
+
+    #endregion
     #region Reusable Methods
     protected override void AddInputActionsCallBacks()
     {
@@ -45,7 +82,10 @@ public class PlayerRunningState : PlayerMovingState
 
         stateMachine.ChangeState(stateMachine.WalkingState);
     }
+    protected override void OnMovementCanceled(InputAction.CallbackContext context)
+    {
+        stateMachine.ChangeState(stateMachine.MediumStoppingState);
+    }
 
-    
     #endregion
 }
