@@ -41,6 +41,11 @@ public class GPlayer : MonoBehaviour
         
         movementStateMachine.ChangeState(movementStateMachine.IdlingState);
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        movementStateMachine.OnTriggerEnter(other);
+    }
     private void Update()
     {
         movementStateMachine.HandleInput();

@@ -13,6 +13,7 @@ public class PlayerStateReusableData
 
 
     public bool ShouldWalk { get; set; }
+    public bool ShouldSprint { get; set; }
 
     private Vector3 currentTargetRotation;
     private Vector3 timeToReachtargetRotation;
@@ -50,6 +51,8 @@ public class PlayerStateReusableData
             return ref dampedTargetRotationPassedTime;
         }
     }
+
+    public Vector3 CurrentJumpForce { get; set; }
 
     public PlayerRotationData RotationData { get;  set; }
 }

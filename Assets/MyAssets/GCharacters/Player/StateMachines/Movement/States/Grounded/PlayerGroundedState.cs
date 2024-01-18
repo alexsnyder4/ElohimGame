@@ -19,13 +19,33 @@ public class PlayerGroundedState : PlayerMovementState
         Float();
     }
 
+    public override void Enter()
+    {
+        base.Enter();
+
+        UpdateShouldSprintState();
+    }
+
 
 
 
     #endregion
 
     #region Main Methods
+    private void UpdateShouldSprintState()
+    {
+        if (!stateMachine.ReusableData.ShouldSprint)
+        {
+            return;
+        }
 
+        if (stateMachine.ReusableData.MovementInput != Vector2.zero)
+        {
+            return;
+        }
+
+        stateMachine.ReusableData.ShouldSprint = false;
+    }
     private void Float()
     {
         Vector3 capsuleColliderCenterInWorldSpace = stateMachine.Player.ColliderUtility.CapsuleColliderData.Collider.bounds.center;
@@ -76,6 +96,8 @@ public class PlayerGroundedState : PlayerMovementState
         stateMachine.Player.Input.PlayerActions.Movement.canceled += OnMovementCanceled;
 
         stateMachine.Player.Input.PlayerActions.Dash.started += OnDashStarted;
+
+        stateMachine.Player.Input.PlayerActions.Jump.started += OnJumpStarted;
     }
 
     
@@ -87,10 +109,18 @@ public class PlayerGroundedState : PlayerMovementState
         stateMachine.Player.Input.PlayerActions.Movement.canceled -= OnMovementCanceled;
 
         stateMachine.Player.Input.PlayerActions.Dash.started -= OnDashStarted;
+
+        stateMachine.Player.Input.PlayerActions.Jump.started -= OnJumpStarted;
     }
 
     protected virtual void OnMove()
     {
+        if (stateMachine.ReusableData.ShouldSprint)
+        {
+            stateMachine.ChangeState(stateMachine.SprintingState);
+
+            return;
+        }
         if (stateMachine.ReusableData.ShouldWalk)
         {
             stateMachine.ChangeState(stateMachine.WalkingState);
@@ -113,6 +143,11 @@ public class PlayerGroundedState : PlayerMovementState
     protected virtual void OnDashStarted(InputAction.CallbackContext context)
     {
         stateMachine.ChangeState(stateMachine.DashingState);
+    }
+
+    protected virtual void OnJumpStarted(InputAction.CallbackContext context)
+    {
+        stateMachine.ChangeState(stateMachine.JumpingState);
     }
     #endregion
 }

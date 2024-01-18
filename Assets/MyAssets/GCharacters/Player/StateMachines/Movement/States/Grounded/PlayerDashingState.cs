@@ -22,6 +22,8 @@ public class PlayerDashingState : PlayerGroundedState
 
         stateMachine.ReusableData.MovementSpeedModifier = dashData.SpeedModifier;
 
+        stateMachine.ReusableData.CurrentJumpForce = airborneData.JumpData.StrongForce;
+
         stateMachine.ReusableData.RotationData = dashData.RotationData;
 
         AddForceOnTransitionFromStationaryState();
