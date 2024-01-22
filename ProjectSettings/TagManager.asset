@@ -22,7 +22,7 @@ TagManager:
   - Sphere
   - Enemy
   - PlayerLayer
-  - 
+  - GroundCheck
   - 
   - 
   - 
