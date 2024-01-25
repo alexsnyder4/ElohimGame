@@ -88,6 +88,16 @@ public class PlayerMovementState : IState
         }
     }
 
+    public void OnTriggerExit(Collider collider)
+    {
+        if(stateMachine.Player.LayerData.IsGroundLayer(collider.gameObject.layer))
+        {
+            OnContactWithGroundExited(collider);
+
+            return;
+        }
+    }
+
     
 
 
@@ -242,6 +252,12 @@ public class PlayerMovementState : IState
         stateMachine.Player.rb.velocity = Vector3.zero;
     }
 
+    protected void ResetVerticalVelocity()
+    {
+        Vector3 playerHorizontalVelocity = GetPlayerHorizontalVelocity();
+
+        stateMachine.Player.rb.velocity = playerHorizontalVelocity;
+    }
     protected virtual void AddInputActionsCallBacks()
     {
         stateMachine.Player.Input.PlayerActions.WalkToggle.started += OnWalkToggleStarted;
@@ -291,6 +307,11 @@ public class PlayerMovementState : IState
     {
         
     }
+
+    protected virtual void OnContactWithGroundExited(Collider collider)
+    {
+        
+    }
     #endregion
 
     #region Input Methods
@@ -300,7 +321,9 @@ public class PlayerMovementState : IState
         stateMachine.ReusableData.ShouldWalk = !stateMachine.ReusableData.ShouldWalk;
     }
 
-   
+    
+
+
 
     #endregion
 }

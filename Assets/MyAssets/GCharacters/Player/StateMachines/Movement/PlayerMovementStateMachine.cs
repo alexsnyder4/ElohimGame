@@ -20,6 +20,9 @@ public class PlayerMovementStateMachine : StateMachine
     public PlayerHardStoppingState HardStoppingState { get; }
 
     public PlayerJumpingState JumpingState { get; }
+
+    public PlayerFallingState FallingState { get; }
+
     public PlayerMovementStateMachine(GPlayer gPlayer)
     {
         Player = gPlayer;
@@ -37,5 +40,6 @@ public class PlayerMovementStateMachine : StateMachine
         HardStoppingState = new PlayerHardStoppingState(this);
 
         JumpingState = new PlayerJumpingState(this);
+        FallingState = new PlayerFallingState(this);
     }
 }

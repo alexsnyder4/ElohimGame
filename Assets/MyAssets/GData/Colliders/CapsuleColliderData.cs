@@ -8,6 +8,8 @@ public class CapsuleColliderData
 
     public Vector3 ColliderCenterInLocalSpace { get; private set; }
 
+    public Vector3 ColiderVerticalExtents{ get; private set; }
+
     public void Initialize(GameObject gameObject)
     {
         if (Collider != null)
@@ -22,5 +24,7 @@ public class CapsuleColliderData
     public void UpdateColliderData()
     {
         ColliderCenterInLocalSpace = Collider.center;
+
+        ColiderVerticalExtents = new Vector3(0f, Collider.bounds.extents.y, 0f);
     }
 }

@@ -90,6 +90,13 @@ public class PlayerSprintingState : PlayerMovingState
     {
         base.RemoveInputActionsCallBacks();
     }
+
+    protected override void OnFall()
+    {
+        shouldResetSprintState = false;
+        
+        base.OnFall();
+    }
     #endregion
 
     #region Input Methods
