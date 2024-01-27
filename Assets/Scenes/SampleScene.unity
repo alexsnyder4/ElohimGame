@@ -9203,6 +9203,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6368058487399367649, guid: 9bba9e5d5d47c65408a8a17f2778ded1, type: 3}
+      propertyPath: m_Mass
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6368058487399367649, guid: 9bba9e5d5d47c65408a8a17f2778ded1, type: 3}
       propertyPath: m_Interpolate
       value: 1
       objectReference: {fileID: 0}

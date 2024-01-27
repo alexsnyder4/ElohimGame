@@ -7,6 +7,8 @@ public class PlayerFallingState : PlayerAirborneState
 {
 
     private PlayerFallData fallData;
+
+    private Vector3 playerPositionOnEnter;
     public PlayerFallingState(PlayerMovementStateMachine playerMovementStateMachine) : base(playerMovementStateMachine)
     {
         fallData = airborneData.FallData;
@@ -15,6 +17,7 @@ public class PlayerFallingState : PlayerAirborneState
     public override void Enter()
     {
         base.Enter();
+        playerPositionOnEnter = stateMachine.Player.transform.position;
 
         stateMachine.ReusableData.MovementSpeedModifier = 0f;
 
@@ -30,6 +33,27 @@ public class PlayerFallingState : PlayerAirborneState
 
     protected override void ResetSprintState()
     {
+    }
+
+    protected override void OnContactWithGround(Collider collider)
+    {
+        float fallDistance = MathF.Abs(playerPositionOnEnter.y - stateMachine.Player.transform.position.y);
+
+        if(fallDistance < fallData.MinimumDistanceToBeConsideredHardFall)
+        {
+            stateMachine.ChangeState(stateMachine.LightLandingState);
+
+            return;
+        }
+
+        if(stateMachine.ReusableData.ShouldWalk && !stateMachine.ReusableData.ShouldSprint || stateMachine.ReusableData.MovementInput == Vector2.zero)
+        {
+            stateMachine.ChangeState(stateMachine.HardLandingState);
+            
+            return;
+        }
+
+        stateMachine.ChangeState(stateMachine.RollingState);
     }
 
     private void LimitVerticalVelocity()
