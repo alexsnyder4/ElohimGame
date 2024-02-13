@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NewBehaviourScript
   <GroundedData>k__BackingField:
     <BaseSpeed>k__BackingField: 5
+    <GroundToFallRayDistance>k__BackingField: 1
     <SlopeSpeedAngles>k__BackingField:
       serializedVersion: 2
       m_Curve:
@@ -86,6 +87,8 @@ MonoBehaviour:
       <LightDecelerationForce>k__BackingField: 5
       <MediumDecelerationForce>k__BackingField: 6.5
       <HardDecelerationForce>k__BackingField: 5
+    <RollData>k__BackingField:
+      <SpeedModifier>k__BackingField: 1
   <AirborneData>k__BackingField:
     <JumpData>k__BackingField:
       <RotationData>k__BackingField:
@@ -193,8 +196,11 @@ MonoBehaviour:
         m_PostInfinity: 2
         m_RotationOrder: 4
       <JumpToGroundRayDistance>k__BackingField: 2
-      <DecelerationForce>k__BackingField: 2.65
-      <StationaryForce>k__BackingField: {x: 0, y: 2, z: 0}
-      <WeakForce>k__BackingField: {x: 1, y: 2, z: 1}
-      <MediumForce>k__BackingField: {x: 1.5, y: 2, z: 1.5}
-      <StrongForce>k__BackingField: {x: 2, y: 2, z: 2}
+      <DecelerationForce>k__BackingField: 2.39
+      <StationaryForce>k__BackingField: {x: 0, y: 5, z: 0}
+      <WeakForce>k__BackingField: {x: 2, y: 5, z: 2}
+      <MediumForce>k__BackingField: {x: 3.5, y: 5, z: 3.5}
+      <StrongForce>k__BackingField: {x: 5, y: 5, z: 5}
+    <FallData>k__BackingField:
+      <FallSpeedLimit>k__BackingField: 15
+      <MinimumDistanceToBeConsideredHardFall>k__BackingField: 3
