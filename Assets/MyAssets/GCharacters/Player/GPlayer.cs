@@ -11,6 +11,8 @@ public class GPlayer : MonoBehaviour
     [field: Header("Collisions")]
     [field: SerializeField] public PlayerCapsuleColliderUtility ColliderUtility { get; private set; }
     [field: SerializeField] public PlayerLayerData LayerData { get; private set; }
+    [field: Header("Cameras")]
+    [field: SerializeField] public PlayerCameraUtility cameraUtility { get; private set; }
     public Transform MainCameraTransform {  get; private set; }
     public Rigidbody rb {  get; private set; }
 
@@ -25,6 +27,7 @@ public class GPlayer : MonoBehaviour
 
         ColliderUtility.Initialize(gameObject);
         ColliderUtility.CalculateCapsuleColliderDimensions();
+        cameraUtility.Initialize();
 
         MainCameraTransform = Camera.main.transform;
         rb = GetComponent<Rigidbody>();

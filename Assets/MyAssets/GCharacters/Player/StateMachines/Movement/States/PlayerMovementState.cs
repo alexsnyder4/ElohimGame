@@ -20,8 +20,13 @@ public class PlayerMovementState : IState
         movementData = stateMachine.Player.Data.GroundedData;
 
         airborneData = stateMachine.Player.Data.AirborneData;
+
+        SetBaseCameraRecenteringData();
+
         InitializeData();
     }
+
+    
 
     private void InitializeData()
     {
@@ -179,6 +184,11 @@ public class PlayerMovementState : IState
 
     #region Reusable Methods
 
+    protected void SetBaseCameraRecenteringData()
+    {
+        stateMachine.ReusableData.BackwardsCameraRecenteringData = movementData.BackwardsCameraRecenteringData;
+        stateMachine.ReusableData.SidewaysCameraRecenteringData = movementData.SidewaysCameraRecenteringData;
+    }
     protected void SetBaseRotationData()
     {
         stateMachine.ReusableData.RotationData = movementData.BaseRotationData;
@@ -261,6 +271,12 @@ public class PlayerMovementState : IState
     protected virtual void AddInputActionsCallBacks()
     {
         stateMachine.Player.Input.PlayerActions.WalkToggle.started += OnWalkToggleStarted;
+
+        stateMachine.Player.Input.PlayerActions.Look.started += OnMouseMovementStarted;
+
+        stateMachine.Player.Input.PlayerActions.Movement.performed += OnMovementPerformed;
+
+        stateMachine.Player.Input.PlayerActions.Movement.canceled += OnMovementCanceled;
     }
 
     
@@ -268,6 +284,12 @@ public class PlayerMovementState : IState
     protected virtual void RemoveInputActionsCallBacks()
     {
         stateMachine.Player.Input.PlayerActions.WalkToggle.started -= OnWalkToggleStarted;
+
+        stateMachine.Player.Input.PlayerActions.Look.started -= OnMouseMovementStarted;
+
+        stateMachine.Player.Input.PlayerActions.Movement.performed -= OnMovementPerformed;
+
+        stateMachine.Player.Input.PlayerActions.Movement.canceled -= OnMovementCanceled;
     }
 
     protected void DecelerateHorizontally()
@@ -312,6 +334,74 @@ public class PlayerMovementState : IState
     {
         
     }
+
+    protected void UpdateCameraRecenteringState(Vector2 movementInput)
+    {
+        if(movementInput == Vector2.zero)
+        {
+            return;
+        }
+
+        if (movementInput == Vector2.up)
+        {
+            DisableCameraRecentering();
+
+            return;
+        }
+
+        float cameraVerticalAngle = stateMachine.Player.MainCameraTransform.eulerAngles.x;
+
+        if(cameraVerticalAngle >= 270f)
+        {
+            cameraVerticalAngle -= 360f;
+        }
+
+        cameraVerticalAngle = Mathf.Abs(cameraVerticalAngle);
+
+        if(movementInput == Vector2.down)
+        {
+            SetCameraRecenteringState(cameraVerticalAngle, stateMachine.ReusableData.BackwardsCameraRecenteringData);
+
+            return;
+        }
+
+        SetCameraRecenteringState(cameraVerticalAngle, stateMachine.ReusableData.SidewaysCameraRecenteringData);
+    }
+
+    protected void SetCameraRecenteringState(float cameraVerticalAngle, List<PlayerCameraRecenteringData> cameraRecenteringData)
+    {
+        foreach(PlayerCameraRecenteringData recenteringData in cameraRecenteringData)
+            {
+                if(!recenteringData.IsWithinRange(cameraVerticalAngle))
+                {
+                    continue;
+                }
+
+                EnableCameraRecentering(recenteringData.WaitTime, recenteringData.RecenteringTime);
+
+                return;
+            }
+
+            DisableCameraRecentering();
+
+    }
+
+    protected void EnableCameraRecentering(float waitTime = -1f, float recenteringTime = -1f)
+    {
+
+        float movementSpeed = GetMovementSpeed();
+
+        if (movementSpeed == 0f)
+        {
+            movementSpeed = movementData.BaseSpeed;
+        }
+        stateMachine.Player.cameraUtility.EnableRecentering(waitTime,recenteringTime, movementData.BaseSpeed, movementSpeed);
+    }
+
+    protected void DisableCameraRecentering()
+    {
+        stateMachine.Player.cameraUtility.DisableRecentering();
+    }
     #endregion
 
     #region Input Methods
@@ -321,9 +411,22 @@ public class PlayerMovementState : IState
         stateMachine.ReusableData.ShouldWalk = !stateMachine.ReusableData.ShouldWalk;
     }
 
+    protected virtual void OnMovementCanceled(InputAction.CallbackContext context)
+    {
+        DisableCameraRecentering();
+    }
+
+    private void OnMouseMovementStarted(InputAction.CallbackContext context)
+    {
+        UpdateCameraRecenteringState(stateMachine.ReusableData.MovementInput);
+    }
+
+    private void OnMovementPerformed(InputAction.CallbackContext context)
+    {
+        UpdateCameraRecenteringState(context.ReadValue<Vector2>());
+    }
     
-
-
+    
 
     #endregion
 }

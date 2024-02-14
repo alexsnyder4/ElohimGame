@@ -10,10 +10,6 @@ public class PlayerLandingState : PlayerGroundedState
 
     }
     #region Input Methods
-    protected override void OnMovementCanceled(InputAction.CallbackContext context)
-    {
-        
-    }
 
     #endregion
 

@@ -24,6 +24,8 @@ public class PlayerGroundedState : PlayerMovementState
         base.Enter();
 
         UpdateShouldSprintState();
+
+        UpdateCameraRecenteringState(stateMachine.ReusableData.MovementInput);
     }
 
 
@@ -82,6 +84,13 @@ public class PlayerGroundedState : PlayerMovementState
     {
         float slopeSpeedModifier = movementData.SlopeSpeedAngles.Evaluate(angle);
 
+        if(stateMachine.ReusableData.MovementOnSlopesSpeedModifier != slopeSpeedModifier)
+        {
+            stateMachine.ReusableData.MovementOnSlopesSpeedModifier = slopeSpeedModifier;
+
+            UpdateCameraRecenteringState(stateMachine.ReusableData.MovementInput);
+        }
+
         stateMachine.ReusableData.MovementOnSlopesSpeedModifier = slopeSpeedModifier;
 
         return slopeSpeedModifier;
@@ -104,8 +113,6 @@ public class PlayerGroundedState : PlayerMovementState
     {
         base.AddInputActionsCallBacks();
 
-        stateMachine.Player.Input.PlayerActions.Movement.canceled += OnMovementCanceled;
-
         stateMachine.Player.Input.PlayerActions.Dash.started += OnDashStarted;
 
         stateMachine.Player.Input.PlayerActions.Jump.started += OnJumpStarted;
@@ -116,8 +123,6 @@ public class PlayerGroundedState : PlayerMovementState
     protected override void RemoveInputActionsCallBacks()
     {
         base.RemoveInputActionsCallBacks();
-
-        stateMachine.Player.Input.PlayerActions.Movement.canceled -= OnMovementCanceled;
 
         stateMachine.Player.Input.PlayerActions.Dash.started -= OnDashStarted;
 
@@ -172,11 +177,6 @@ public class PlayerGroundedState : PlayerMovementState
 
     #region Input Methods
 
-
-    protected virtual void OnMovementCanceled(InputAction.CallbackContext context)
-    {
-        stateMachine.ChangeState(stateMachine.IdlingState);
-    }
 
     protected virtual void OnDashStarted(InputAction.CallbackContext context)
     {

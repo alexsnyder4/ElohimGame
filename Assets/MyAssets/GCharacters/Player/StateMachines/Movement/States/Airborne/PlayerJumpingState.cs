@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerJumpingState : PlayerAirborneState
 {
@@ -124,6 +125,10 @@ public class PlayerJumpingState : PlayerAirborneState
     }
 
     #endregion
-
+    #region 
+    protected override void OnMovementCanceled(InputAction.CallbackContext context)
+    {
+    }
+    #endregion
 
 }
