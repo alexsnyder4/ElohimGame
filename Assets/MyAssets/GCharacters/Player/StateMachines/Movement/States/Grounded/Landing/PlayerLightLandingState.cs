@@ -16,7 +16,7 @@ public class PlayerLightLandingState : PlayerLandingState
         stateMachine.ReusableData.MovementSpeedModifier = 0f;
 
         base.Enter();
-
+        
         stateMachine.ReusableData.CurrentJumpForce = airborneData.JumpData.StationaryForce;
 
         resetVelocity();

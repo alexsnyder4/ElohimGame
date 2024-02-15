@@ -22,6 +22,7 @@ public class PlayerJumpingState : PlayerAirborneState
     {
         base.Enter();
 
+
         stateMachine.ReusableData.MovementSpeedModifier = 0f;
 
         stateMachine.ReusableData.RotationData = jumpData.RotationData;

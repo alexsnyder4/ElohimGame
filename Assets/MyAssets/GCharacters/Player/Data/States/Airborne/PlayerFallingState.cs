@@ -17,6 +17,9 @@ public class PlayerFallingState : PlayerAirborneState
     public override void Enter()
     {
         base.Enter();
+
+        StartAnimation(stateMachine.Player.AnimationData.FallParameterHash);
+
         playerPositionOnEnter = stateMachine.Player.transform.position;
 
         stateMachine.ReusableData.MovementSpeedModifier = 0f;
@@ -33,6 +36,13 @@ public class PlayerFallingState : PlayerAirborneState
 
     protected override void ResetSprintState()
     {
+    }
+
+    public override void Exit()
+    {
+        base.Exit();
+
+        StopAnimation(stateMachine.Player.AnimationData.FallParameterHash);
     }
 
     protected override void OnContactWithGround(Collider collider)

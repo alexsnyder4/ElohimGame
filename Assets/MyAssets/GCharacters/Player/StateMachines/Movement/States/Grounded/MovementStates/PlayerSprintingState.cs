@@ -25,11 +25,15 @@ public class PlayerSprintingState : PlayerMovingState
         
         base.Enter();
 
+        StartAnimation(stateMachine.Player.AnimationData.DashParameterHash);
+
         stateMachine.ReusableData.CurrentJumpForce = airborneData.JumpData.StrongForce;
 
         shouldResetSprintState = true;
         startTime = Time.time;
     }
+
+    
 
     public override void Update()
     {
@@ -52,6 +56,9 @@ public class PlayerSprintingState : PlayerMovingState
     public override void Exit()
     {
         base.Exit();
+
+        StopAnimation(stateMachine.Player.AnimationData.DashParameterHash);
+
         if(shouldResetSprintState)
         {
             keepSprinting = false;

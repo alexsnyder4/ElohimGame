@@ -1307,6 +1307,22 @@ MonoBehaviour:
     <VirtualCamera>k__BackingField: {fileID: 847362786}
     <DefaultHorizontalWaitTime>k__BackingField: 0
     <DefaultHorizontalRecenteringTime>k__BackingField: 4
+  <AnimationData>k__BackingField:
+    groundedParameterName: Grounded
+    movingParameterName: Moving
+    stoppingParameterName: Stopping
+    landingParameterName: Landing
+    airborneParameterName: Airborne
+    idleParameterName: IsIdling
+    dashParameterName: isDashing
+    walkParameterName: isWalking
+    runParameterName: isRunning
+    sprintParameterName: isSprinting
+    runStopParameterName: isRunStopping
+    dashStopParameterName: isDashStopping
+    rollParameterName: isRolling
+    hardLandParameterName: isHardLanding
+    fallParameterName: IsFalling
 --- !u!114 &445675624
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9150,6 +9166,10 @@ PrefabInstance:
       propertyPath: ui
       value: 
       objectReference: {fileID: 1421271865}
+    - target: {fileID: 663567214956952915, guid: 9bba9e5d5d47c65408a8a17f2778ded1, type: 3}
+      propertyPath: m_CullingMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6368058486496701376, guid: 9bba9e5d5d47c65408a8a17f2778ded1, type: 3}
       propertyPath: ui
       value: 

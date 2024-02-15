@@ -22,6 +22,8 @@ public class PlayerIdlingState : PlayerGroundedState
         
         base.Enter();
 
+        StartAnimation(stateMachine.Player.AnimationData.IdleParameterHash);
+
         stateMachine.ReusableData.CurrentJumpForce = airborneData.JumpData.StationaryForce;
         
         resetVelocity();
@@ -39,6 +41,13 @@ public class PlayerIdlingState : PlayerGroundedState
         OnMove();
     }
 
-    
+    public override void Exit()
+    {
+        base.Exit();
+
+        StopAnimation(stateMachine.Player.AnimationData.IdleParameterHash);
+    }
+
+
     #endregion
 }

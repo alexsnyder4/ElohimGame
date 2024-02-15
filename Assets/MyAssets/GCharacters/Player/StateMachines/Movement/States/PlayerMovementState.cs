@@ -184,6 +184,14 @@ public class PlayerMovementState : IState
 
     #region Reusable Methods
 
+    protected void StartAnimation(int animationHash)
+    {
+        stateMachine.Player.anim.SetBool(animationHash, true);
+    }
+    protected void StopAnimation(int animationHash)
+    {
+        stateMachine.Player.anim.SetBool(animationHash, false);
+    }
     protected void SetBaseCameraRecenteringData()
     {
         stateMachine.ReusableData.BackwardsCameraRecenteringData = movementData.BackwardsCameraRecenteringData;

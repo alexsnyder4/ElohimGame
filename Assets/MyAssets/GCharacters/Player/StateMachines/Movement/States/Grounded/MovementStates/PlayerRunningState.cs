@@ -22,6 +22,8 @@ public class PlayerRunningState : PlayerMovingState
 
         base.Enter();
 
+        StartAnimation(stateMachine.Player.AnimationData.RunParameterHash);
+
         stateMachine.ReusableData.CurrentJumpForce = airborneData.JumpData.MediumForce;
         startTime = Time.time;
     }
@@ -40,6 +42,13 @@ public class PlayerRunningState : PlayerMovingState
             return;
         }
         StopRunning();
+    }
+
+    public override void Exit()
+    {
+        base.Exit();
+
+        StopAnimation(stateMachine.Player.AnimationData.RunParameterHash);
     }
 
 
