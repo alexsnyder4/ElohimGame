@@ -428,8 +428,7 @@ public class PlayerMovementState : IState
     {
         UpdateCameraRecenteringState(stateMachine.ReusableData.MovementInput);
     }
-
-    private void OnMovementPerformed(InputAction.CallbackContext context)
+    protected virtual void OnMovementPerformed(InputAction.CallbackContext context)
     {
         UpdateCameraRecenteringState(context.ReadValue<Vector2>());
     }

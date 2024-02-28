@@ -16,13 +16,14 @@ public class PlayerFallingState : PlayerAirborneState
 
     public override void Enter()
     {
+
+        stateMachine.ReusableData.MovementSpeedModifier = 0f;
+
         base.Enter();
 
         StartAnimation(stateMachine.Player.AnimationData.FallParameterHash);
 
         playerPositionOnEnter = stateMachine.Player.transform.position;
-
-        stateMachine.ReusableData.MovementSpeedModifier = 0f;
 
         ResetVerticalVelocity();
     }

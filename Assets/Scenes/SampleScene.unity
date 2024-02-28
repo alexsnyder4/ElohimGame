@@ -1313,7 +1313,7 @@ MonoBehaviour:
     stoppingParameterName: Stopping
     landingParameterName: Landing
     airborneParameterName: Airborne
-    idleParameterName: IsIdling
+    idleParameterName: isIdling
     dashParameterName: isDashing
     walkParameterName: isWalking
     runParameterName: isRunning
@@ -1322,7 +1322,7 @@ MonoBehaviour:
     dashStopParameterName: isDashStopping
     rollParameterName: isRolling
     hardLandParameterName: isHardLanding
-    fallParameterName: IsFalling
+    fallParameterName: isFalling
 --- !u!114 &445675624
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7368,6 +7368,11 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: d37a5cbead14fdb45b40ff3e2093be3d, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1229eaea3e4a15d42b30cc1d06204e1e, type: 3}
+--- !u!1 &1931061427 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6097463390468783507, guid: 9bba9e5d5d47c65408a8a17f2778ded1, type: 3}
+  m_PrefabInstance: {fileID: 6368058485937695563}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1951982386
 GameObject:
   m_ObjectHideFlags: 0
@@ -8401,6 +8406,18 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6905524599441024809, guid: 9bba9e5d5d47c65408a8a17f2778ded1, type: 3}
   m_PrefabInstance: {fileID: 6368058485937695563}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &543450653089664109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1931061427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffd98a0d101de1c48ae479bbf9c21bda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &633812042434551523
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9332,6 +9349,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6368058487399367662, guid: 9bba9e5d5d47c65408a8a17f2778ded1, type: 3}
+    - {fileID: 6368058487399367661, guid: 9bba9e5d5d47c65408a8a17f2778ded1, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 9bba9e5d5d47c65408a8a17f2778ded1, type: 3}
 --- !u!114 &6386022967298862941
 MonoBehaviour:

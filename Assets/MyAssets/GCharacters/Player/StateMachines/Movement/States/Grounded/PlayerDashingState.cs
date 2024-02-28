@@ -134,15 +134,18 @@ public class PlayerDashingState : PlayerGroundedState
 
     #region Input Methods
 
-    protected override void OnDashStarted(InputAction.CallbackContext context)
-    {
-    }
-
     private void OnMovementPerformed(InputAction.CallbackContext context)
     {
         shouldKeepRotating = true;
     }
 
+    protected override void OnMovementCanceled(InputAction.CallbackContext context)
+    {
+    }
+
+    protected override void OnDashStarted(InputAction.CallbackContext context)
+    {
+    }
     #endregion
 
 

@@ -48,6 +48,5 @@ public class PlayerIdlingState : PlayerGroundedState
         StopAnimation(stateMachine.Player.AnimationData.IdleParameterHash);
     }
 
-
     #endregion
 }

@@ -14,7 +14,7 @@ public class PlayerAnimationData
     [SerializeField] private string airborneParameterName = "Airborne";
 
     [Header("Grounded Parameter Names")]
-    [SerializeField] private string idleParameterName = "IsIdling";
+    [SerializeField] private string idleParameterName = "isIdling";
     [SerializeField] private string dashParameterName = "isDashing";
     [SerializeField] private string walkParameterName = "isWalking";
     [SerializeField] private string runParameterName = "isRunning";
@@ -25,7 +25,7 @@ public class PlayerAnimationData
     [SerializeField] private string hardLandParameterName = "isHardLanding";
 
     [Header("Airborne Parameter Names")]
-    [SerializeField] private string fallParameterName = "IsFalling";
+    [SerializeField] private string fallParameterName = "isFalling";
 
     public int GroundedParameterHash { get; private set; }
     public int MovingParameterHash { get; private set; }

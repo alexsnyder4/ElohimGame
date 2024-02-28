@@ -127,7 +127,12 @@ public class PlayerGroundedState : PlayerMovementState
         stateMachine.Player.Input.PlayerActions.Jump.started += OnJumpStarted;
     }
 
-    
+    protected override void OnMovementPerformed(InputAction.CallbackContext context)
+    {
+        UpdateTargetRotation(GetMovementInputDirection());
+        base.OnMovementPerformed(context);
+        
+    }
 
     protected override void RemoveInputActionsCallBacks()
     {
