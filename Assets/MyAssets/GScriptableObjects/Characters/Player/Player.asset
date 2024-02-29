@@ -106,7 +106,7 @@ MonoBehaviour:
       <RotationData>k__BackingField:
         <TargetRotationReachTime>k__BackingField: {x: 0, y: 0.02, z: 0}
       <TimeToBeConsideredConsecutive>k__BackingField: 1
-      <ConsecutiveDashesLimitAmount>k__BackingField: 2
+      <ConsecutiveDashesLimitAmount>k__BackingField: 4
       <DashLimitReachedCooldown>k__BackingField: 1.75
     <StopData>k__BackingField:
       <LightDecelerationForce>k__BackingField: 5

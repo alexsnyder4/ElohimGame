@@ -40,4 +40,5 @@ public class PlayerAnimationEventTrigger : MonoBehaviour
         }
         gPlayer.OnMovementStateAnimationTransitionEvent();
     }
+
 }

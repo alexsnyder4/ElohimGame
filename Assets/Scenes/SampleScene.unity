@@ -574,7 +574,7 @@ MonoBehaviour:
   m_ZDamping: 1
   m_TargetMovementOnly: 1
   m_ScreenX: 0.5
-  m_ScreenY: 0.5
+  m_ScreenY: 0.58
   m_CameraDistance: 6
   m_DeadZoneWidth: 0
   m_DeadZoneHeight: 0
@@ -2630,7 +2630,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 847362784}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1128.5, y: 43.9, z: 526.1}
+  m_LocalPosition: {x: -1128.5, y: 44.454258, z: 526.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -9199,13 +9199,41 @@ PrefabInstance:
       propertyPath: inventoryPanel
       value: 
       objectReference: {fileID: 1448192870}
+    - target: {fileID: 6368058486496701377, guid: 9bba9e5d5d47c65408a8a17f2778ded1, type: 3}
+      propertyPath: m_Depth
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6368058486496701377, guid: 9bba9e5d5d47c65408a8a17f2778ded1, type: 3}
+      propertyPath: field of view
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 6368058486496701377, guid: 9bba9e5d5d47c65408a8a17f2778ded1, type: 3}
+      propertyPath: m_FOVAxisMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6368058486496701377, guid: 9bba9e5d5d47c65408a8a17f2778ded1, type: 3}
+      propertyPath: m_FocalLength
+      value: 20.78461
+      objectReference: {fileID: 0}
+    - target: {fileID: 6368058486496701377, guid: 9bba9e5d5d47c65408a8a17f2778ded1, type: 3}
+      propertyPath: m_projectionMatrixMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6368058486496701377, guid: 9bba9e5d5d47c65408a8a17f2778ded1, type: 3}
+      propertyPath: m_NormalizedViewPortRect.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6368058486496701377, guid: 9bba9e5d5d47c65408a8a17f2778ded1, type: 3}
+      propertyPath: m_NormalizedViewPortRect.width
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6368058486496701379, guid: 9bba9e5d5d47c65408a8a17f2778ded1, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.8302999
       objectReference: {fileID: 0}
     - target: {fileID: 6368058486496701379, guid: 9bba9e5d5d47c65408a8a17f2778ded1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.4000015
+      value: 1.954258
       objectReference: {fileID: 0}
     - target: {fileID: 6368058486496701379, guid: 9bba9e5d5d47c65408a8a17f2778ded1, type: 3}
       propertyPath: m_LocalPosition.z

@@ -76,7 +76,8 @@ public class PlayerSprintingState : PlayerMovingState
     {
         if(stateMachine.ReusableData.MovementInput == Vector2.zero)
         {
-            stateMachine.ChangeState(stateMachine.IdlingState); return;
+            stateMachine.ChangeState(stateMachine.IdlingState); 
+            return;
         }
 
         stateMachine.ChangeState(stateMachine.RunningState);

@@ -41,9 +41,9 @@ public class PlayerDashingState : PlayerGroundedState
     {
       
 
-        if(stateMachine.ReusableData.MovementInput== Vector2.zero)
+        if(stateMachine.ReusableData.MovementInput == Vector2.zero)
         {
-            stateMachine.ChangeState(stateMachine.HardStoppingState);
+            stateMachine.ChangeState(stateMachine.IdlingState);
 
             return;
         }
