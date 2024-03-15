@@ -945,11 +945,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d47c8969d884b9d4c9aa7b66fe3a46fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 744222805}
+  activationDistance: 160
+  enemyPrefabs:
+  - {fileID: 744222805}
+  randomSpawnRate: 1
+  spawnRateWeights: []
   canSpawn: 0
   maxEnemies: 15
   currentEnemies: 0
-  distanceToPlayer: 0
 --- !u!65 &254109747
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1649,7 +1652,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8cdb5a204b27124da6cbad015f7aa9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activationDistance: 160
   spawnerDataList: []
 --- !u!1001 &566824275
 PrefabInstance:
@@ -1995,11 +1997,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d47c8969d884b9d4c9aa7b66fe3a46fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 744222805}
+  activationDistance: 160
+  enemyPrefabs:
+  - {fileID: 744222805}
+  randomSpawnRate: 1
+  spawnRateWeights: []
   canSpawn: 0
   maxEnemies: 15
   currentEnemies: 0
-  distanceToPlayer: 0
 --- !u!65 &700850164
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5970,11 +5975,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d47c8969d884b9d4c9aa7b66fe3a46fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 744222805}
+  activationDistance: 160
+  enemyPrefabs:
+  - {fileID: 744222805}
+  randomSpawnRate: 1
+  spawnRateWeights: []
   canSpawn: 0
   maxEnemies: 15
   currentEnemies: 0
-  distanceToPlayer: 0
 --- !u!65 &1538832874
 BoxCollider:
   m_ObjectHideFlags: 0
