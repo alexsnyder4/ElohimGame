@@ -9430,6 +9430,10 @@ PrefabInstance:
       propertyPath: ui
       value: 
       objectReference: {fileID: 1421271865}
+    - target: {fileID: 543450653089664105, guid: 9bba9e5d5d47c65408a8a17f2778ded1, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 663567214956952915, guid: 9bba9e5d5d47c65408a8a17f2778ded1, type: 3}
       propertyPath: m_CullingMode
       value: 1
