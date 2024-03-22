@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -43,8 +44,8 @@ public class PlayerDashingState : PlayerGroundedState
 
         if(stateMachine.ReusableData.MovementInput == Vector2.zero)
         {
-            stateMachine.ChangeState(stateMachine.IdlingState);
-
+            stateMachine.ChangeState(stateMachine.HardStoppingState);
+            Debug.Log("No Input");
             return;
         }
         stateMachine.ChangeState(stateMachine.SprintingState);
@@ -134,8 +135,9 @@ public class PlayerDashingState : PlayerGroundedState
 
     #region Input Methods
 
-    private void OnMovementPerformed(InputAction.CallbackContext context)
+    protected override void OnMovementPerformed(InputAction.CallbackContext context)
     {
+        base.OnMovementPerformed(context);
         shouldKeepRotating = true;
     }
 

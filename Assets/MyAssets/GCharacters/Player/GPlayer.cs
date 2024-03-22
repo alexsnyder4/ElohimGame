@@ -86,4 +86,8 @@ public class GPlayer : MonoBehaviour
     {
         movementStateMachine.OnAnimationTransitionEvent();
     }
+    public string GetCurrentStateName()
+    {
+        return movementStateMachine.CurrentStateName;
+    }
 }

@@ -6,6 +6,9 @@ public abstract class StateMachine
 {
     protected IState currentState;
 
+    //Return string of current state player is in, if player is not in a state it will say "No State"
+    public string CurrentStateName => currentState != null ? currentState.GetType().Name : "No State";
+
     public void ChangeState(IState newState)
     {
         currentState?.Exit();
