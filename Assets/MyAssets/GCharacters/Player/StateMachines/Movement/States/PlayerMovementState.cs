@@ -12,10 +12,14 @@ public class PlayerMovementState : IState
     protected PlayerGroundedData movementData;
 
     protected PlayerAirborneData airborneData;
+
+    protected PlayerCombatData combatData;
     
     public PlayerMovementState(PlayerMovementStateMachine playerMovementStateMachine)
     {
         stateMachine = playerMovementStateMachine;
+
+        combatData = stateMachine.Player.Data.CombatData;
 
         movementData = stateMachine.Player.Data.GroundedData;
 
@@ -54,6 +58,7 @@ public class PlayerMovementState : IState
     public virtual void HandleInput()
     {
         ReadMovementinput();
+        ReadActionInput();
     }
 
     
@@ -112,6 +117,21 @@ public class PlayerMovementState : IState
         stateMachine.ReusableData.MovementInput = stateMachine.Player.Input.PlayerActions.Movement.ReadValue<Vector2>();
 
         
+    }
+    private void ReadActionInput()
+    {
+        if (stateMachine.Player.Input.PlayerActions.Attack.triggered)
+        {
+            stateMachine.ChangeState(stateMachine.LightAttackingState);
+        }
+        //else if (stateMachine.Player.Input.PlayerActions.Attack.triggered)
+        //{
+        //stateMachine.ChangeState(stateMachine.HeavyAttackingState);
+        //}
+        else if (stateMachine.Player.Input.PlayerActions.Block.triggered)
+        {
+            stateMachine.ChangeState(stateMachine.BlockingState);
+        }
     }
     private void Move()
     {

@@ -27,6 +27,12 @@ public class PlayerAnimationData
     [Header("Airborne Parameter Names")]
     [SerializeField] private string fallParameterName = "isFalling";
 
+    [Header("Combat Parameter Names")]
+    [SerializeField] private string lightAttackParameterName = "isLightAttacking";
+    [SerializeField] private string heavyAttackParameterName = "isHeavyAttacking";
+    [SerializeField] private string blockParameterName = "isBlocking";
+
+
     public int GroundedParameterHash { get; private set; }
     public int MovingParameterHash { get; private set; }
     public int StoppingParameterHash { get; private set; }
@@ -43,6 +49,11 @@ public class PlayerAnimationData
     public int RollParameterHash { get; private set; }
     public int HardLandParameterHash { get; private set; }
     public int FallParameterHash { get; private set; }
+
+    public int LightAttackParameterHash { get; private set; }
+    public int HeavyAttackParameterHash { get; private set; }
+    public int BlockingParameterHash { get; private set; }
+
 
     public void Initialize()
     {
@@ -61,6 +72,8 @@ public class PlayerAnimationData
         RollParameterHash = Animator.StringToHash(rollParameterName);
         HardLandParameterHash = Animator.StringToHash(hardLandParameterName);
         FallParameterHash = Animator.StringToHash(fallParameterName);
-
+        LightAttackParameterHash = Animator.StringToHash(lightAttackParameterName);
+        HeavyAttackParameterHash = Animator.StringToHash(heavyAttackParameterName);
+        BlockingParameterHash = Animator.StringToHash(blockParameterName);
     }
 }

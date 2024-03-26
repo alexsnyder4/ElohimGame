@@ -29,6 +29,14 @@ public class PlayerMovementStateMachine : StateMachine
 
     public PlayerFallingState FallingState { get; }
 
+    //Combat States
+
+    public PlayerBlockingState BlockingState { get; }
+
+    public PlayerHeavyAttackingState HeavyAttackingState { get; }
+
+    public PlayerLightAttackingState LightAttackingState { get; }
+
     public PlayerMovementStateMachine(GPlayer gPlayer)
     {
         Player = gPlayer;
@@ -51,5 +59,9 @@ public class PlayerMovementStateMachine : StateMachine
 
         JumpingState = new PlayerJumpingState(this);
         FallingState = new PlayerFallingState(this);
+
+        BlockingState = new PlayerBlockingState(this);
+        LightAttackingState = new PlayerLightAttackingState(this);
+        //HeavyAttackingState = new PlayerHeavyAttackingState(this);
     }
 }
